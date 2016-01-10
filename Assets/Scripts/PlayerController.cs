@@ -10,6 +10,8 @@ public class PlayerController : FSMBase {
     private float maxSpeed = 20f;
     private float characterMass = 10f;
 
+    private float _elapsedTime;
+    private float skillTime = 4.0f;
 
     private int _layermask;
 
@@ -59,6 +61,7 @@ public class PlayerController : FSMBase {
     {
         if (state == State.Run)
         {
+            _elapsedTime = 0.0f;
             SetState(State.Skill);
         }
     }
@@ -116,6 +119,7 @@ public class PlayerController : FSMBase {
 
     protected virtual void Skill()
     {
+        //_obstacle.DoSkill(skillTime);
 
     }
 
