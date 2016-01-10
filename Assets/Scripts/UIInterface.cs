@@ -18,6 +18,9 @@ public class UIInterface : MonoBehaviour
     private int flag;
     private float timer;
 
+    public new Transform transform;
+    public PlayerController playercontroller;
+
     void Awake() {
 
         timer = 0.0f;
@@ -27,6 +30,9 @@ public class UIInterface : MonoBehaviour
         CompanyName.text = "NCSOFT";
         DistanceBar.fillAmount = 0.5f;
 
+
+        transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playercontroller = transform.GetComponent<PlayerController>();
 
     }
 
@@ -137,6 +143,7 @@ public class UIInterface : MonoBehaviour
     {
 
         //Debug.Log("스킬 시전");
+        //DoSkill()
         
     }
 
@@ -144,14 +151,14 @@ public class UIInterface : MonoBehaviour
     {
 
        //Debug.Log("공격 시전");
-       
+       //DoAttack()
     }
 
     public void JumpBt()    // 점프  버튼 눌렸을 떄 실행
     {
         // 점프 액션 
         //Debug.Log("점프 시전");
-
+        //DoJump()
     }
 
     
