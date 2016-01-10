@@ -30,9 +30,10 @@ public class PlayerController : FSMBase {
         if (state == State.Dead)
             return;
 
-        ProcessInput();
+        //ProcessInput();
     }
 
+    /*
     void ProcessInput()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -50,6 +51,32 @@ public class PlayerController : FSMBase {
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             SetState(State.Skill);
+        }
+    }
+    */
+
+    public void DoSkill()
+    {
+        if (state == State.Run)
+        {
+            SetState(State.Skill);
+        }
+    }
+
+    public void DoAttack()
+    {
+        if (state == State.Run)
+        {
+            SetState(State.Attack);
+        }
+    }
+
+    public void DoJump()
+    {
+        if (state == State.Run)
+        {
+            jumpSpeed = maxSpeed;
+            SetState(State.Jump);
         }
     }
 
