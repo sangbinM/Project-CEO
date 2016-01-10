@@ -47,6 +47,10 @@ public class PlayerController : FSMBase {
         {
             SetState(State.Attack);
         }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            SetState(State.Skill);
+        }
     }
 
     protected virtual void Run()
@@ -79,6 +83,11 @@ public class PlayerController : FSMBase {
     }
 
     protected virtual void Dead()
+    {
+
+    }
+
+    protected virtual void Skill()
     {
 
     }

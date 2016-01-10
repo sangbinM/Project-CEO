@@ -5,7 +5,7 @@ public class FSMBase : MonoBehaviour {
 
     public enum State
     {
-        Run, Attack, Jump, Dead
+        Run, Attack, Jump, Dead, Skill
     }
 
     public State state = State.Run;
