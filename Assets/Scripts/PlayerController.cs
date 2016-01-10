@@ -15,19 +15,42 @@ public class PlayerController : FSMBase {
 
     private int _layermask;
 
+    private GameObject[] Obstacles;
+
     private ObstacleController _obstacle;
 
     protected override void Awake()
     {
         base.Awake();
 
+        Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
         characterAltitude = transform.position.y;
         SetName("Team9");
+    }
+
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    print(other.name);
+    //    Destroy(other.gameObject);
+    //}
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        print(other.gameObject.name);
+        Destroy(other.gameObject);
     }
 
     protected override void Update()
     {
         base.Update();
+
+
+        Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
+        foreach (GameObject obstacle in Obstacles)
+        {
+
+            obstacle.transform.Translate(movement);
+        }
 
         if (state == State.Dead)
             return;

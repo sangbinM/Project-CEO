@@ -12,6 +12,7 @@ public class UIInterface : MonoBehaviour
     public Image JumpButton;
     public Image AttackButton;
     public Image SkillButton;
+    
 
     private int _layerMask;
 
@@ -30,6 +31,7 @@ public class UIInterface : MonoBehaviour
         PlayerName.text = "오늘만";
         DistanceBar.fillAmount = 0.5f;
 
+        //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
@@ -65,7 +67,8 @@ public class UIInterface : MonoBehaviour
     }
     void Update() {
 
-       
+        
+
         if (timer >= 1) { 
             timer = 0;
             setTimeText();
@@ -76,6 +79,8 @@ public class UIInterface : MonoBehaviour
         ButtonCheck();
 
     }
+
+    
 
     private void ButtonCheck() {
 
