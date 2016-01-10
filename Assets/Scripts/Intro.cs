@@ -1,61 +1,58 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Events;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class Intro : MonoBehaviour {
+
     public InputField InputField;
-    public Button StartButton;
+    public Button StartButton; // 팝업용 버튼
 
-    //private PlayerController _player;
+    private PlayerController _player;
 
     private string sceneToLoad;  // next loading scene
 
-    public enum IntroState
-    {
-        Idle, PopUp
-    }
-
-    public IntroState I_state = IntroState.Idle;
+    public Image panel;
+    public Image popButton1;
+    public Image popButton2;
+    public Text b1Text;
+    public Text b2Text;
+    public Text panelText;
 
     // Use this for initialization
     void Awake () {
-        //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        panel.enabled = false;
+        popButton1.enabled = false;
+        popButton2.enabled = false;
+        b1Text.enabled = false;
+        b2Text.enabled = false;
+        panelText.enabled = false;
 
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        
     }
 	
     void Update() {
-        //Invoke(I_state.ToString(), 0f);
-        //Invoke("SetState", 0.5f);
-
         if (Input.GetMouseButtonDown(0)) // start 눌렸을 때
         {
 
-            //_player.SetName(InputField.textComponent.ToString());
-            OnGUI();
-            DoMyWindow(0);
+            _player.SetName(InputField.textComponent.ToString());
+            Debug.Log(InputField.textComponent.ToString());
+            panelText.text = "캐릭터명을 " + InputField.textComponent.ToString() + "으로 정하시겠습니까?";
         }
     }
 
-    void IntroIdle()
+
+    public void OpenPopup()
     {
+        panel.enabled = true;
+        popButton1.enabled = true;
+        popButton2.enabled = true;
+        b1Text.enabled = true;
+        b2Text.enabled = true;
+        panelText.enabled = true;
 
-    }
-
-    void IntroPopUP()
-    {
-
-    }
-
-    public Rect windowRect = new Rect(20, 20, 120, 50);
-
-    void OnGUI()
-    {
-        windowRect = GUI.Window(0, windowRect, DoMyWindow, "My Window");
-    }
-    void DoMyWindow(int windowID)
-    {
-        if (GUI.Button(new Rect(10, 20, 100, 20), "Hello World"))
-            print("Got a click");
+        //panel.guiText = 
 
     }
 

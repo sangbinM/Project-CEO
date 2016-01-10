@@ -13,13 +13,13 @@ public class FSMBase : MonoBehaviour {
     [HideInInspector]
     public new Transform transform;
 
-    protected CharacterController _cc;
+    //protected CharacterController _cc;
     protected Animator _animator;
 
     protected virtual void Awake()
     {
         transform = GetComponent<Transform>();
-        _cc = GetComponent<CharacterController>();
+        //_cc = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
     }
 

@@ -102,8 +102,9 @@ public class PlayerController : FSMBase {
     {
         jumpSpeed += characterMass * Physics.gravity.y * Time.deltaTime * 1/2;
         Vector3 movement = new Vector3(0f, jumpSpeed * Time.deltaTime);
-        Debug.Log(jumpSpeed * Time.deltaTime);
-        _cc.Move(movement);
+        //Debug.Log(jumpSpeed * Time.deltaTime);
+        //_cc.Move(movement);
+        transform.Translate(movement);
 
         if (transform.position.y <= characterAltitude)
         {
