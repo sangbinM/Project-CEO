@@ -143,22 +143,22 @@ public class UIInterface : MonoBehaviour
     {
 
         //Debug.Log("스킬 시전");
-        //DoSkill()
+        playercontroller.DoSkill();
         
     }
 
     public void AttackBt()  // 어택 버튼 눌렸을 때 실행
     {
 
-       //Debug.Log("공격 시전");
-       //DoAttack()
+        //Debug.Log("공격 시전");
+        playercontroller.DoAttack();
     }
 
     public void JumpBt()    // 점프  버튼 눌렸을 떄 실행
     {
         // 점프 액션 
         //Debug.Log("점프 시전");
-        //DoJump()
+        playercontroller.DoJump();
     }
 
     
