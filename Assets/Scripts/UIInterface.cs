@@ -61,6 +61,4 @@ public class UIInterface : MonoBehaviour
         Debug.Log("점프 시전");
 
     }
-
-
 }
