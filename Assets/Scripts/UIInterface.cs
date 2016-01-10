@@ -16,21 +16,56 @@ public class UIInterface : MonoBehaviour
     private int _layerMask;
 
     private int flag;
+    private float timer;
 
     void Awake() {
 
+        timer = 0.0f;
         flag = 0;
         TimeText.text = "00:01";
         PlayerName.text = "대리";
         CompanyName.text = "NCSOFT";
         DistanceBar.fillAmount = 0.5f;
-        print("button");
 
 
     }
 
+    private void setTimeText() {
 
+        int minute = (int)Time.time / 60;
+        int second = (int)Time.time % 60;
+        string minuteS;
+        string secondS;
+
+        if (second / 10 == 0) {
+            secondS = "0" + second.ToString();
+        }
+        else
+        {
+            secondS = second.ToString();
+        }
+
+        if (minute / 10 == 0)
+        {
+            minuteS = "0" + minute.ToString();
+        }
+        else
+        {
+            minuteS =  minute.ToString();
+        }
+
+        TimeText.text = minuteS + ":" + secondS;
+
+    }
     void Update() {
+
+       
+        if (timer >= 1) { 
+            timer = 0;
+            setTimeText();
+        }
+
+        timer += Time.deltaTime;
 
         ButtonCheck();
 
@@ -101,21 +136,21 @@ public class UIInterface : MonoBehaviour
     public void SkillBt()  // 어택 버튼 눌렸을 때 실행
     {
 
-        Debug.Log("스킬 시전");
+        //Debug.Log("스킬 시전");
         
     }
 
     public void AttackBt()  // 어택 버튼 눌렸을 때 실행
     {
 
-       Debug.Log("공격 시전");
+       //Debug.Log("공격 시전");
        
     }
 
     public void JumpBt()    // 점프  버튼 눌렸을 떄 실행
     {
         // 점프 액션 
-        Debug.Log("점프 시전");
+        //Debug.Log("점프 시전");
 
     }
 
