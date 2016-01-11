@@ -18,21 +18,23 @@ public class UIInterface : MonoBehaviour
 
     private int flag;
     private float timer;
+    private float init_timer;
 
     public new Transform transform;
     public PlayerController playercontroller;
 
     void Awake() {
 
+        init_timer = Time.time;
         timer = 0.0f;
         flag = 0;
         TimeText.text = "00:00";
         PlayerLevel.text = "사원";
         PlayerName.text = "오늘만";
         DistanceBar.fillAmount = 0.5f;
-
+        //setTimeText();
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
-        
+
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
@@ -41,8 +43,8 @@ public class UIInterface : MonoBehaviour
 
     private void setTimeText() {
 
-        int minute = (int)Time.time / 60;
-        int second = (int)Time.time % 60;
+        int minute = (int)(Time.time- init_timer) / 60;
+        int second = (int)(Time.time - init_timer) % 60;
         string minuteS;
         string secondS;
 
@@ -69,14 +71,16 @@ public class UIInterface : MonoBehaviour
 
     void Update() {
 
-        
 
+        //timer += Time.deltaTime;
+
+        setTimeText();
+        /*
         if (timer >= 1) { 
             timer = 0;
-            setTimeText();
-        }
-
-        timer += Time.deltaTime;
+            //setTimeText();
+        }*/
+        
 
         ButtonCheck();
 
