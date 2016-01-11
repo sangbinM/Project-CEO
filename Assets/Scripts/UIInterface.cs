@@ -6,12 +6,13 @@ public class UIInterface : MonoBehaviour
 {
 
     public Text TimeText;
+    public Text PlayerLevel;
     public Text PlayerName;
-    public Text CompanyName;
     public Image DistanceBar;
     public Image JumpButton;
     public Image AttackButton;
     public Image SkillButton;
+    
 
     private int _layerMask;
 
@@ -25,11 +26,12 @@ public class UIInterface : MonoBehaviour
 
         timer = 0.0f;
         flag = 0;
-        TimeText.text = "00:01";
-        PlayerName.text = "대리";
-        CompanyName.text = "NCSOFT";
+        TimeText.text = "00:00";
+        PlayerLevel.text = "사원";
+        PlayerName.text = "오늘만";
         DistanceBar.fillAmount = 0.5f;
 
+        //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
@@ -65,7 +67,8 @@ public class UIInterface : MonoBehaviour
     }
     void Update() {
 
-       
+        
+
         if (timer >= 1) { 
             timer = 0;
             setTimeText();
@@ -76,6 +79,8 @@ public class UIInterface : MonoBehaviour
         ButtonCheck();
 
     }
+
+    
 
     private void ButtonCheck() {
 
