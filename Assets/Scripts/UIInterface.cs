@@ -18,14 +18,14 @@ public class UIInterface : MonoBehaviour
 
     private int flag;
     private float timer;
-    private float init_timer;
+    private float init_time;
 
     public new Transform transform;
     public PlayerController playercontroller;
 
     void Awake() {
 
-        init_timer = Time.time;
+        init_time = Time.time;
         timer = 0.0f;
         flag = 0;
         TimeText.text = "00:00";
@@ -43,8 +43,8 @@ public class UIInterface : MonoBehaviour
 
     private void setTimeText() {
 
-        int minute = (int)(Time.time- init_timer) / 60;
-        int second = (int)(Time.time - init_timer) % 60;
+        int minute = (int)(Time.time- init_time) / 60;
+        int second = (int)(Time.time - init_time) % 60;
         string minuteS;
         string secondS;
 

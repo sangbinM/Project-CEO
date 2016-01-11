@@ -12,6 +12,9 @@ public class PlayerController : FSMBase {
 
     private float _elapsedTime;
     private float skillTime = 4.0f;
+    private float stopWaitTime = 1.0f;
+
+    private float timer;
 
     private int _layermask;
 
@@ -39,7 +42,7 @@ public class PlayerController : FSMBase {
         // 공격해서 장애물이 없어지는 것인지 아니면 장애물이랑 부딪힌 건지
         // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
         // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
-
+        timer = 0;
         bgm.moveFlag = false;
         //print(other.gameObject.name);
         //Destroy(other.gameObject);
@@ -48,8 +51,14 @@ public class PlayerController : FSMBase {
     protected override void Update()
     {
         base.Update();
+
+
+        timer += Time.deltaTime;
+        if (timer >= 1 && !bgm.moveFlag) {
+            bgm.moveFlag = true;
+        }
+
         // 충돌 체크 위한 예제 코드 나중에 혜림언니가 장애물 추가 하면 삭제해도 됨
-        
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         foreach (GameObject obstacle in Obstacles)  
         {
