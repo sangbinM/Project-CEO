@@ -118,10 +118,12 @@ public class PlayerController : FSMBase {
 
     protected virtual void Attack()
     {
+        /*
         if (Vector3.Distance(transform.position, _obstacle.transform.position) <= 2f)
         {
             //_obstacle.Damage();
         }
+        */
 
         SetState(State.Run);
     }
