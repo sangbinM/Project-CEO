@@ -125,6 +125,18 @@ public class UIInterface : MonoBehaviour
         return false;
     }
 
+    private bool CheckTouchUIRound(Vector3 position, Image img)
+    {        //버튼이 원형 일 때 
+
+        if (Vector3.Distance(img.transform.position, position) <= img.rectTransform.rect.width / 2)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /*
     private bool CheckTouchUIRound(Vector3 position, Image img) // 버튼이 원일 때
     {
         float r = img.rectTransform.rect.width / 2;
@@ -137,6 +149,7 @@ public class UIInterface : MonoBehaviour
 
         return false;
     }
+    */
 
 
     public void SkillBt()  // 어택 버튼 눌렸을 때 실행
