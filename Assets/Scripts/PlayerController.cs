@@ -21,10 +21,13 @@ public class PlayerController : FSMBase {
 
     private ObstacleController _obstacle;
 
+    public BackGroundMove bgm;
+
     protected override void Awake()
     {
         base.Awake();
 
+        bgm = GameObject.FindGameObjectWithTag("BackgroundRoot").GetComponent<BackGroundMove>();
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
         characterAltitude = transform.position.y;
         SetName("Team9");
@@ -36,6 +39,8 @@ public class PlayerController : FSMBase {
         // 공격해서 장애물이 없어지는 것인지 아니면 장애물이랑 부딪힌 건지
         // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
         // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
+
+        bgm.moveFlag = false;
         //print(other.gameObject.name);
         //Destroy(other.gameObject);
     }

@@ -32,6 +32,7 @@ public class UIInterface : MonoBehaviour
         DistanceBar.fillAmount = 0.5f;
 
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
+        
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
@@ -65,6 +66,7 @@ public class UIInterface : MonoBehaviour
         TimeText.text = minuteS + ":" + secondS;
 
     }
+
     void Update() {
 
         
@@ -115,6 +117,31 @@ public class UIInterface : MonoBehaviour
         }
 
     }
+    /*
+    public void UnStop() {
+
+
+    }
+
+    public void Stop() {
+
+        StopBackground();
+        StopObatacle();
+        
+    }
+
+    private void StopBackground() {
+
+        bgm.moveFlag = false;
+
+    }
+
+    private void StopObatacle() {
+
+
+
+    }
+    */
 
     private bool CheckTouchUI(Vector3 position, Image img) {        //버튼이 사각형 일 때 
 
