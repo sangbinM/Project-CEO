@@ -15,27 +15,26 @@ public class PlayerController : FSMBase {
 
     private int _layermask;
 
-    private GameObject[] Obstacles;
+    private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
 
     private ObstacleController _obstacle;
 
     protected override void Awake()
     {
         base.Awake();
-        
+
+        Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
         characterAltitude = transform.position.y;
         SetName("Team9");
     }
-
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    print(other.name);
-    //    Destroy(other.gameObject);
-    //}
-
+    
+    // 장애물 이랑 충돌하면 이벤트 함수 발생, other값은 player와 충돌한 객체(장애물)
     void OnCollisionEnter2D(Collision2D other)
     {
-        print(other.gameObject.name);
+        // 공격해서 장애물이 없어지는 것인지 아니면 장애물이랑 부딪힌 건지
+        // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
+        // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
+        //print(other.gameObject.name);
         //Destroy(other.gameObject);
     }
 
@@ -43,14 +42,15 @@ public class PlayerController : FSMBase {
     {
         base.Update();
 
-
-        Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
+        // 충돌 체크 위한 예제 코드 나중에 혜림언니가 장애물 추가 하면 삭제해도 됨
+        /*
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
-        foreach (GameObject obstacle in Obstacles)
+        foreach (GameObject obstacle in Obstacles)  
         {
 
             obstacle.transform.Translate(movement);
         }
+        */
 
         if (state == State.Dead)
             return;
