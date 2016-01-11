@@ -22,8 +22,7 @@ public class PlayerController : FSMBase {
     protected override void Awake()
     {
         base.Awake();
-
-        Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
+        
         characterAltitude = transform.position.y;
         SetName("Team9");
     }
@@ -37,7 +36,7 @@ public class PlayerController : FSMBase {
     void OnCollisionEnter2D(Collision2D other)
     {
         print(other.gameObject.name);
-        Destroy(other.gameObject);
+        //Destroy(other.gameObject);
     }
 
     protected override void Update()
@@ -45,6 +44,7 @@ public class PlayerController : FSMBase {
         base.Update();
 
 
+        Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         foreach (GameObject obstacle in Obstacles)
         {
