@@ -16,7 +16,7 @@ public class PlayerController : FSMBase {
     private int _layermask;
 
 
-    private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
+    //private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
 
 
     private ObstacleController _obstacle;
@@ -25,7 +25,7 @@ public class PlayerController : FSMBase {
     {
         base.Awake();
 
-        Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
+        //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
         characterAltitude = transform.position.y;
         SetName("Team9");
     }
@@ -45,12 +45,12 @@ public class PlayerController : FSMBase {
         base.Update();
         // 충돌 체크 위한 예제 코드 나중에 혜림언니가 장애물 추가 하면 삭제해도 됨
         
-        Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
-        foreach (GameObject obstacle in Obstacles)  
-        {
+        //Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
+        //foreach (GameObject obstacle in Obstacles)  
+        //{
 
-            obstacle.transform.Translate(movement);
-        }
+        //    obstacle.transform.Translate(movement);
+        //}
         
         if (state == State.Dead)
             return;
