@@ -24,13 +24,12 @@ public class PlayerController : FSMBase {
     public float distance;
     public float max_distance = 600;
 
-<<<<<<< HEAD
+
     //private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
-=======
+
     private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
     private ObstacleController _obstacle;
     public BackGroundMove bgm;
->>>>>>> origin/master
 
     // 장애물
     private bool skillFlag;
@@ -40,16 +39,14 @@ public class PlayerController : FSMBase {
     protected override void Awake()
     {
         base.Awake();
-<<<<<<< HEAD
 
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
-=======
+
         
         distance = max_distance;
         skillFlag = false;
         bgm = GameObject.FindGameObjectWithTag("BackgroundRoot").GetComponent<BackGroundMove>();
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
->>>>>>> origin/master
         characterAltitude = transform.position.y;
         SetName("Team9");
     }
@@ -81,7 +78,6 @@ public class PlayerController : FSMBase {
 
         // 스킬이면
         
-<<<<<<< HEAD
         //Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         //foreach (GameObject obstacle in Obstacles)  
         //{
@@ -89,7 +85,6 @@ public class PlayerController : FSMBase {
         //    obstacle.transform.Translate(movement);
         //}
         
-=======
 
         distance -= bgm.moveSpeed * Time.deltaTime;
         timer += Time.deltaTime;
@@ -111,7 +106,6 @@ public class PlayerController : FSMBase {
             obstacle.transform.Translate(movement);
         }
 
->>>>>>> origin/master
         if (state == State.Dead)
             return;
 
