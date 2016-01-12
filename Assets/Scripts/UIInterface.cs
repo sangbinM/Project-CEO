@@ -12,6 +12,7 @@ public class UIInterface : MonoBehaviour
     public Image JumpButton;
     public Image AttackButton;
     public Image SkillButton;
+    public Image SkillGage;
     
 
     private int _layerMask;
@@ -91,7 +92,7 @@ public class UIInterface : MonoBehaviour
         //Time.timeScale;
 
         //timer += Time.deltaTime;
-
+        SkillGage.fillAmount += Time.deltaTime/5;
         setTimeText();
         /*
         if (timer >= 1) { 
@@ -101,6 +102,17 @@ public class UIInterface : MonoBehaviour
         
 
         ButtonCheck();
+
+    }
+
+    public void printSkillBtActive()
+    {
+        if (SkillGage.fillAmount == 1) {
+
+            SkillGage.fillAmount = 0;
+            print("SkillBt");
+
+        }
 
     }
 
@@ -137,24 +149,31 @@ public class UIInterface : MonoBehaviour
         // flag 는 공격 버튼 눌렀을 때 활성화
 
         if (flag == 1 && Input.GetMouseButton(0)) {
-            if (CheckTouchUI(Input.mousePosition, SkillButton)) { // 드래그 한 것이 스킬 버튼까지 오면
-                SkillBt();
+            if (CheckTouchUIRound(Input.mousePosition, SkillButton)) { // 드래그 한 것이 스킬 버튼까지 오면
+                if (SkillGage.fillAmount == 1)
+                {
+                    SkillBt();
+                    print("SkillBt Active");
+                    SkillGage.fillAmount = 0;
+                }
+                print("SkillBt checked");
                 flag = 0;
+
             }
 
         } else if (Input.GetMouseButtonUp(0) && flag == 1)    //  공격 버튼 누르고 떼면
         {
-            if (CheckTouchUI(Input.mousePosition, AttackButton)) 
+            if (CheckTouchUIRound(Input.mousePosition, AttackButton)) 
             {
                 flag = 1;
                 AttackBt();
             }
         } else if (Input.GetMouseButtonDown(0)) {
 
-            if (CheckTouchUI(Input.mousePosition, AttackButton)){
+            if (CheckTouchUIRound(Input.mousePosition, AttackButton)){
                 flag = 1;
 
-            } else if (CheckTouchUI(Input.mousePosition, JumpButton)){
+            } else if (CheckTouchUIRound(Input.mousePosition, JumpButton)){
 
                 JumpBt();
             }
