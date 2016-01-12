@@ -32,7 +32,7 @@ public class UIInterface : MonoBehaviour
         init_time = Time.time;
         timer = 0.0f;
         flag = 0;
-        TimeText.text = "00:00";
+        TimeText.text = "00:00:00";
         PlayerLevel.text = "사원";
         PlayerName.text = "오늘만";
         DistanceBar.fillAmount = 0.0f;
@@ -61,10 +61,21 @@ public class UIInterface : MonoBehaviour
 
     private void setTimeText() {
 
+        int millisecond = (int)((Time.time - init_time) * 100) % 100;
         int minute = (int)(Time.time- init_time) / 60;
         int second = (int)(Time.time - init_time) % 60;
         string minuteS;
         string secondS;
+        string millisecondS;
+
+        if (millisecond / 10 == 0)
+        {
+            millisecondS = "0" + millisecond.ToString();
+        }
+        else
+        {
+            millisecondS = millisecond.ToString();
+        }
 
         if (second / 10 == 0) {
             secondS = "0" + second.ToString();
@@ -83,7 +94,7 @@ public class UIInterface : MonoBehaviour
             minuteS =  minute.ToString();
         }
 
-        TimeText.text = minuteS + ":" + secondS;
+        TimeText.text = minuteS + ":" + secondS + " : " + millisecondS;
 
     }
 
