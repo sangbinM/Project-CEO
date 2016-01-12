@@ -23,6 +23,9 @@ public class UIInterface : MonoBehaviour
     public new Transform transform;
     public PlayerController playercontroller;
 
+    private Image[] menuPanel;
+
+
     void Awake() {
 
         init_time = Time.time;
@@ -35,9 +38,23 @@ public class UIInterface : MonoBehaviour
         //setTimeText();
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
+        GameObject[] tempObject = GameObject.FindGameObjectsWithTag("MenuPanel");
+        menuPanel = new Image[tempObject.Length];
+        int i = 0;
+        foreach (GameObject temp in tempObject) {
+
+            menuPanel[i] = temp.GetComponent<Image>();
+            menuPanel[i].enabled = false;
+            if (temp.GetComponentInChildren<Text>())
+                menuPanel[i].GetComponentInChildren<Text>().enabled = false;
+            i++;
+        }
+
+
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
+        
 
     }
 
@@ -71,6 +88,7 @@ public class UIInterface : MonoBehaviour
 
     void Update() {
 
+        //Time.timeScale;
 
         //timer += Time.deltaTime;
 
@@ -86,7 +104,33 @@ public class UIInterface : MonoBehaviour
 
     }
 
-    
+    public void pause() {
+        if (Time.timeScale == 0){
+
+            foreach (Image temp in menuPanel)
+            {
+
+                temp.enabled = false;
+                if (temp.GetComponentInChildren<Text>())
+                    temp.GetComponentInChildren<Text>().enabled = false;
+            }
+            Time.timeScale = 1;
+
+        } else {
+
+            foreach (Image temp in menuPanel)
+            {
+
+                temp.enabled = true;
+                if (temp.GetComponentInChildren<Text>())
+                    temp.GetComponentInChildren<Text>().enabled = true;
+            }
+            Time.timeScale = 0;
+
+        }
+        
+    }
+
 
     private void ButtonCheck() {
 
