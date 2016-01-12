@@ -35,7 +35,7 @@ public class UIInterface : MonoBehaviour
         TimeText.text = "00:00";
         PlayerLevel.text = "사원";
         PlayerName.text = "오늘만";
-        DistanceBar.fillAmount = 0.5f;
+        DistanceBar.fillAmount = 0.0f;
         //setTimeText();
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
@@ -87,10 +87,16 @@ public class UIInterface : MonoBehaviour
 
     }
 
+    private void setDistanceBar() {
+
+        DistanceBar.fillAmount = (playercontroller.max_distance - playercontroller.distance) / playercontroller.max_distance;
+
+    }
+
     void Update() {
 
         //Time.timeScale;
-
+        setDistanceBar();
         //timer += Time.deltaTime;
         SkillGage.fillAmount += Time.deltaTime/5;
         setTimeText();

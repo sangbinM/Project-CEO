@@ -3,8 +3,13 @@ using System.Collections;
 
 public class BackGroundMove : MonoBehaviour {
 
-    private float moveSpeed = 5.0f;
+    public float moveSpeed;
+    public float fixedMoveSpeed = 5.0f;
     
+    // timer distance  지울 것
+    //private float timer;
+    //private float distance;
+
     private Transform[] background;
     private int flag;   // 화면 체인지 해줘야 하는 값
     public float xSize; // Scene에서 Setting 해줘야 하는 값
@@ -15,7 +20,12 @@ public class BackGroundMove : MonoBehaviour {
     {
         flag = 0;
         moveFlag = true;
-        
+        moveSpeed = fixedMoveSpeed;
+
+        //지울 것
+        //timer = 0f;
+        //distance = 0;
+
         GameObject[] gameobjects = GameObject.FindGameObjectsWithTag("Background");
 
         background = new Transform[gameobjects.Length];
@@ -41,7 +51,13 @@ public class BackGroundMove : MonoBehaviour {
         Vector3 movement = new Vector3(-moveSpeed, 0f, 0f) * Time.deltaTime;
         background[0].Translate(movement);
         background[1].Translate(movement);
-
+        /*
+        if ((int)timer == 20) {
+            print(distance);
+        }
+        distance += movement.x;
+        timer += Time.deltaTime;
+        */
         if (background[0].position.x <= 0 && flag == 0)
         {
             background[1].position = new Vector3(xSize, 0, background[1].position.z);
