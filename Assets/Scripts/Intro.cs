@@ -28,6 +28,20 @@ public class Intro : MonoBehaviour {
         b2Text.enabled = false;
         panelText.enabled = false;
 
+        /*
+        GameData.data.playerName = "오늘만";
+        GameData.data.stars = new int[] { 3, 2, 1, -1, -1 };
+        GameData.data.times = new int[] { 50, 60, 70, -1, -1 };
+        GameData.data.Save();
+        */
+
+        // 로드할 데이터가 없을 때를 위한 디폴트 값
+        GameData.data.playerName = "오늘만";
+        GameData.data.stars = new int[] { -1, -1, -1, -1, -1 };
+        GameData.data.times = new int[] { -1, -1, -1, -1, -1 };
+
+        GameData.data.Load();
+
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         
     }

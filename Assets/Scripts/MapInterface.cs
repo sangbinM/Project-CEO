@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class MapInterface : MonoBehaviour {
 
     public Button[] StageButton;
-    //public Text[] StageText;
     public int[] playTime;
     // 플레이 타임이 (-1)이면 아직 성공하지 못한 스테이지
     public string[] StageDetail = new string[] {"대리 던전",
@@ -132,7 +131,7 @@ public class MapInterface : MonoBehaviour {
         Button bt;
         ColorBlock cb;
         int currentStageNum = -1;
-        
+
         for (int i = 0; i < 5; i++)
         {
             if (playTime[i] < 0)
