@@ -18,30 +18,50 @@ public class UIInterface : MonoBehaviour
 
     private int flag;
     private float timer;
+    private float init_time;
 
     public new Transform transform;
     public PlayerController playercontroller;
 
+    private Image[] menuPanel;
+
+
     void Awake() {
 
+        init_time = Time.time;
         timer = 0.0f;
         flag = 0;
         TimeText.text = "00:00";
         PlayerLevel.text = "사원";
         PlayerName.text = "오늘만";
         DistanceBar.fillAmount = 0.5f;
-
+        //setTimeText();
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
+
+        GameObject[] tempObject = GameObject.FindGameObjectsWithTag("MenuPanel");
+        menuPanel = new Image[tempObject.Length];
+        int i = 0;
+        foreach (GameObject temp in tempObject) {
+
+            menuPanel[i] = temp.GetComponent<Image>();
+            menuPanel[i].enabled = false;
+            if (temp.GetComponentInChildren<Text>())
+                menuPanel[i].GetComponentInChildren<Text>().enabled = false;
+            i++;
+        }
+
+
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
+        
 
     }
 
     private void setTimeText() {
 
-        int minute = (int)Time.time / 60;
-        int second = (int)Time.time % 60;
+        int minute = (int)(Time.time- init_time) / 60;
+        int second = (int)(Time.time - init_time) % 60;
         string minuteS;
         string secondS;
 
@@ -65,22 +85,52 @@ public class UIInterface : MonoBehaviour
         TimeText.text = minuteS + ":" + secondS;
 
     }
+
     void Update() {
 
-        
+        //Time.timeScale;
 
+        //timer += Time.deltaTime;
+
+        setTimeText();
+        /*
         if (timer >= 1) { 
             timer = 0;
-            setTimeText();
-        }
-
-        timer += Time.deltaTime;
+            //setTimeText();
+        }*/
+        
 
         ButtonCheck();
 
     }
 
-    
+    public void pause() {
+        if (Time.timeScale == 0){
+
+            foreach (Image temp in menuPanel)
+            {
+
+                temp.enabled = false;
+                if (temp.GetComponentInChildren<Text>())
+                    temp.GetComponentInChildren<Text>().enabled = false;
+            }
+            Time.timeScale = 1;
+
+        } else {
+
+            foreach (Image temp in menuPanel)
+            {
+
+                temp.enabled = true;
+                if (temp.GetComponentInChildren<Text>())
+                    temp.GetComponentInChildren<Text>().enabled = true;
+            }
+            Time.timeScale = 0;
+
+        }
+        
+    }
+
 
     private void ButtonCheck() {
 
@@ -115,6 +165,31 @@ public class UIInterface : MonoBehaviour
         }
 
     }
+    /*
+    public void UnStop() {
+
+
+    }
+
+    public void Stop() {
+
+        StopBackground();
+        StopObatacle();
+        
+    }
+
+    private void StopBackground() {
+
+        bgm.moveFlag = false;
+
+    }
+
+    private void StopObatacle() {
+
+
+
+    }
+    */
 
     private bool CheckTouchUI(Vector3 position, Image img) {        //버튼이 사각형 일 때 
 

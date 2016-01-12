@@ -150,7 +150,7 @@ public class MapInterface : MonoBehaviour {
                     cb.disabledColor = Color.black;
                     bt.colors = cb;
                 }
-                StageDetail[i] = StageDetail[i] + "미정복";
+                StageDetail[i] = StageDetail[i] + "\n 미정복";
             }
             else
             {
