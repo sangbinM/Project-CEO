@@ -105,19 +105,28 @@ public class UIInterface : MonoBehaviour
 
     }
 
+    // skill버튼 게이지 테스트 코드 -------------------삭제 예정 테스트 코드
     public void printSkillBtActive()
     {
         if (SkillGage.fillAmount == 1) {
 
             SkillGage.fillAmount = 0;
             print("SkillBt");
-
         }
 
     }
 
+
+    //일시 정지 버튼
     public void pause() {
-        if (Time.timeScale == 0){
+        if (Time.timeScale == 0) {
+
+            //일시 정지 버튼 끌 시 다른 UI버튼 클릭 활성화
+            JumpButton.GetComponent<Button>().enabled = true;
+            AttackButton.GetComponent<Button>().enabled = true;
+            SkillButton.GetComponent<Button>().enabled = true;
+            SkillButton.GetComponent<Button>().enabled = true;
+            SkillGage.GetComponent<Button>().enabled = true;
 
             foreach (Image temp in menuPanel)
             {
@@ -130,6 +139,15 @@ public class UIInterface : MonoBehaviour
 
         } else {
 
+
+            //일시 정지 버튼 클릭시 다른 UI버튼 클릭 비활성화
+            JumpButton.GetComponent<Button>().enabled = false;
+            AttackButton.GetComponent<Button>().enabled = false;
+            SkillButton.GetComponent<Button>().enabled = false;
+            SkillButton.GetComponent<Button>().enabled = false;
+            SkillGage.GetComponent<Button>().enabled = false;
+
+            
             foreach (Image temp in menuPanel)
             {
 
@@ -184,31 +202,7 @@ public class UIInterface : MonoBehaviour
         }
 
     }
-    /*
-    public void UnStop() {
-
-
-    }
-
-    public void Stop() {
-
-        StopBackground();
-        StopObatacle();
-        
-    }
-
-    private void StopBackground() {
-
-        bgm.moveFlag = false;
-
-    }
-
-    private void StopObatacle() {
-
-
-
-    }
-    */
+    
 
     private bool CheckTouchUI(Vector3 position, Image img) {        //버튼이 사각형 일 때 
 
