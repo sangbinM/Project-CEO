@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+// 한 스테이지 당 거리 600
+// 1초 당 movespeed만큼 움직임
 public class PlayerController : FSMBase {
 
     private string playerName;
@@ -12,20 +15,41 @@ public class PlayerController : FSMBase {
 
     private float _elapsedTime;
     private float skillTime = 4.0f;
+    private float stopWaitTime = 1.0f;
+
+    private float timer;
 
     private int _layermask;
 
+    public float distance;
+    public float max_distance = 600;
 
+<<<<<<< HEAD
     //private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
-
-
+=======
+    private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
     private ObstacleController _obstacle;
+    public BackGroundMove bgm;
+>>>>>>> origin/master
+
+    // 장애물
+    private bool skillFlag;
+
+    
 
     protected override void Awake()
     {
         base.Awake();
+<<<<<<< HEAD
 
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
+=======
+        
+        distance = max_distance;
+        skillFlag = false;
+        bgm = GameObject.FindGameObjectWithTag("BackgroundRoot").GetComponent<BackGroundMove>();
+        Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
+>>>>>>> origin/master
         characterAltitude = transform.position.y;
         SetName("Team9");
     }
@@ -36,6 +60,17 @@ public class PlayerController : FSMBase {
         // 공격해서 장애물이 없어지는 것인지 아니면 장애물이랑 부딪힌 건지
         // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
         // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
+
+        if (skillFlag)  // 스킬을 사용했을 때
+        {
+            other.gameObject.SetActive(false);
+
+        } else {
+
+            timer = 0;
+            bgm.moveFlag = false;
+
+        }
         //print(other.gameObject.name);
         //Destroy(other.gameObject);
     }
@@ -43,8 +78,10 @@ public class PlayerController : FSMBase {
     protected override void Update()
     {
         base.Update();
-        // 충돌 체크 위한 예제 코드 나중에 혜림언니가 장애물 추가 하면 삭제해도 됨
+
+        // 스킬이면
         
+<<<<<<< HEAD
         //Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         //foreach (GameObject obstacle in Obstacles)  
         //{
@@ -52,6 +89,29 @@ public class PlayerController : FSMBase {
         //    obstacle.transform.Translate(movement);
         //}
         
+=======
+
+        distance -= bgm.moveSpeed * Time.deltaTime;
+        timer += Time.deltaTime;
+
+        if (!skillFlag && timer >= 1 && !bgm.moveFlag)    // 배경 정지 1초만 하고 움직이기
+        {
+            bgm.moveFlag = true;
+        } else if (skillFlag && timer >= skillTime) {
+
+            bgm.moveSpeed = bgm.fixedMoveSpeed;
+
+        }
+
+        // 충돌 체크 위한 예제 코드 나중에 혜림언니가 장애물 추가 하면 삭제해도 됨
+        Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
+        foreach (GameObject obstacle in Obstacles)
+        {
+
+            obstacle.transform.Translate(movement);
+        }
+
+>>>>>>> origin/master
         if (state == State.Dead)
             return;
 
@@ -82,11 +142,17 @@ public class PlayerController : FSMBase {
 
     public void DoSkill()
     {
+        skillFlag = true;
+        timer = 0;
+        bgm.moveFlag = true;
+        bgm.moveSpeed = bgm.fixedMoveSpeed * 2;
+        /*
         if (state == State.Run)
         {
             _elapsedTime = 0.0f;
             SetState(State.Skill);
         }
+        */
     }
 
     public void DoAttack()
