@@ -76,10 +76,7 @@ public class ObstacleController : FSMBase
             UnityEngine.Debug.Log(coll.gameObject.name);
             print(gameObject.GetType());
 
-            gameObject.SetActive(false); // 하나만 될 수 있게.
-
-            gameObject.transform.position = obsPoint2.transform.position;
-            gameObject.SetActive(true);
+            coll.gameObject.SetActive(false); //
         }
 
     }
