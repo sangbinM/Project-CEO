@@ -94,7 +94,7 @@ public class UIInterface : MonoBehaviour
             minuteS =  minute.ToString();
         }
 
-        TimeText.text = minuteS + ":" + secondS + " : " + millisecondS;
+        TimeText.text = minuteS + ":" + secondS + ":" + millisecondS;
 
     }
 
