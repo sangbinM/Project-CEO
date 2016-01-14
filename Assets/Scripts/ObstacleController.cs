@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Diagnostics;
+using System;
 
 public class ObstacleController : FSMBase
 {
@@ -17,9 +18,11 @@ public class ObstacleController : FSMBase
 
     private GameObject[] Obstacles;
 
+    private GameObject[] obsPoints;
     private GameObject obsPoint1;
     private GameObject obsPoint2;
-   
+    private GameObject obsPoint3;
+    private GameObject obsPoint4;
 
     //public ObstacleState state = ObstacleState.Move;
 
@@ -33,8 +36,10 @@ public class ObstacleController : FSMBase
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
-        obsPoint1 = GameObject.FindGameObjectWithTag("obstaclePos1");
-        obsPoint2 = GameObject.FindGameObjectWithTag("obstaclePos2");
+        obsPoints[0] = GameObject.FindGameObjectWithTag("obstaclePos2"); //down
+        obsPoints[1] = GameObject.FindGameObjectWithTag("obstaclePos3"); //mid
+        obsPoints[2] = GameObject.FindGameObjectWithTag("obstaclePos4"); //up
+        obsPoints[3] = GameObject.FindGameObjectWithTag("obstaclePos1");
     }
 
 
@@ -47,13 +52,17 @@ public class ObstacleController : FSMBase
             obstacle.transform.Translate(movement);
 
             // x 좌표가 -8 보다 작으면 오브젝트 SetActive False
-            if (obstacle.transform.position.x < obsPoint1.transform.position.x)
+            if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
             {
                 gameObject.SetActive(false);
                 //Invoke("Respawn", 0f);
 
+                System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+                int num = rand.Next(3);
+                print(num);
+
                 //Invoke 역할 random 시간 지연주기
-                obstacle.transform.position = obsPoint2.transform.position;
+                obstacle.transform.position = obsPoints[num].transform.position;
                 gameObject.SetActive(true);
             }
         }
@@ -72,11 +81,8 @@ public class ObstacleController : FSMBase
         //충돌한 오브젝트의 이름이 Player일 경우
         if (coll.transform.name == "Player")
         {
-            //Debug.Log("Collision!");
-            UnityEngine.Debug.Log(coll.gameObject.name);
-            print(gameObject.GetType());
-
-            coll.gameObject.SetActive(false); //
+            //coll.gameObject.SetActive(false);
+            SetState(State.Dead);
         }
 
     }
