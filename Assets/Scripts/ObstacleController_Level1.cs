@@ -3,7 +3,7 @@ using System.Collections;
 using System.Diagnostics;
 using System;
 
-public class ObstacleController : FSMBase
+public class ObstacleController_Level1 : FSMBase
 {
     public enum ObstacleState
     {
@@ -11,7 +11,6 @@ public class ObstacleController : FSMBase
     }
 
     public float moveSpeed = 2f;
-    public float waitTime = 1f;
 
     protected PlayerController _player;
     protected ObstacleController _obstacle;
@@ -19,28 +18,17 @@ public class ObstacleController : FSMBase
     private GameObject[] Obstacles;
 
     private GameObject[] obsPoints;
-    private GameObject obsPoint1;
-    private GameObject obsPoint2;
-    private GameObject obsPoint3;
-    private GameObject obsPoint4;
-
-    //public ObstacleState state = ObstacleState.Move;
-
-    //[HideInInspector]
-    //public new Transform transform;
-    //protected Animator _animator;
-
 
     protected override void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
-        obsPoints = new GameObject[4];
+        obsPoints = new GameObject[3];
         obsPoints[0] = GameObject.FindGameObjectWithTag("obstaclePos2"); //down
         obsPoints[1] = GameObject.FindGameObjectWithTag("obstaclePos3"); //mid
-        obsPoints[2] = GameObject.FindGameObjectWithTag("obstaclePos4"); //up
-        obsPoints[3] = GameObject.FindGameObjectWithTag("obstaclePos1");
+        //obsPoints[2] = GameObject.FindGameObjectWithTag("obstaclePos4"); //up
+        obsPoints[2] = GameObject.FindGameObjectWithTag("obstaclePos1");
     }
 
 
@@ -53,13 +41,13 @@ public class ObstacleController : FSMBase
             obstacle.transform.Translate(movement);
 
             // x 좌표가 -8 보다 작으면 오브젝트 SetActive False
-            if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
+            if (obstacle.transform.position.x < obsPoints[2].transform.position.x)
             {
                 gameObject.SetActive(false);
                 //Invoke("Respawn", 0f);
 
                 System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                int num = rand.Next(3);
+                int num = rand.Next(2);
                 print(num);
 
                 //Invoke 역할 random 시간 지연주기
@@ -69,13 +57,16 @@ public class ObstacleController : FSMBase
         }
     }
 
-    /*void Respawn()
+    void Invoke()
     {
-        obstacle.transform.position = obsPoint1.position;
-        gameObject.SetActive(true);
+        System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+        int num = rand.Next(2);
+        print(num);
 
-        //SetState(State.Idle);
-    }*/
+        //Invoke 역할 random 시간 지연주기
+        gameObject.transform.position = obsPoints[num].transform.position;
+        gameObject.SetActive(true);
+    }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
@@ -90,10 +81,12 @@ public class ObstacleController : FSMBase
 
     void Damage()  //Player와 일정 range 안에 들어오면 없어지게
     {
-        if((state == State.Attack) && 
+        if ((state == State.Attack) &&
             ((_player.transform.position.x - gameObject.transform.position.x) < 3f))
         {
             gameObject.SetActive(false);
+
+            Invoke();
         }
     }
 
@@ -103,9 +96,9 @@ public class ObstacleController : FSMBase
 
         watch.Stop();
 
-        if(watch.ElapsedMilliseconds < 3000)
+        if (watch.ElapsedMilliseconds < 3000)
         {
-            foreach(GameObject obstacle in Obstacles)
+            foreach (GameObject obstacle in Obstacles)
             {
                 gameObject.SetActive(false);
             }
