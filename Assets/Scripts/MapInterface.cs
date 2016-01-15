@@ -142,6 +142,7 @@ public class MapInterface : MonoBehaviour {
                 if (currentStageNum < i)
                 {
                     bt = StageButton[i].GetComponent<Button>();
+                    bt.enabled = false;
                     cb = bt.colors;
                     cb.normalColor = Color.grey;
                     cb.highlightedColor = Color.gray;
