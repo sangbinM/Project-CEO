@@ -5,7 +5,14 @@ public class FSMBase : MonoBehaviour {
 
     public enum State
     {
-        Run, Attack, Jump, Dead, Skill
+        Run,
+        Attack,
+        Jump,
+        Dead,
+        Skill,
+        Jump2,
+
+        Max
     }
 
     public State state = State.Run;
@@ -26,6 +33,8 @@ public class FSMBase : MonoBehaviour {
     protected virtual void Update()
     {
         Invoke(state.ToString(), 0f);
+
+        Debug.Log(state.ToString());
     }
 
     public void SetState(State newState)

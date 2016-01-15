@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor.SceneManagement;
 
 
 // 한 스테이지 당 거리 600
@@ -22,8 +23,8 @@ public class PlayerController : FSMBase {
     private int _layermask;
 
     public float distance;
-    public float max_distance = 600;
-
+    public float max_distance;
+    public string sceneToLoad;
 
     //private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
 
@@ -33,7 +34,6 @@ public class PlayerController : FSMBase {
 
     // 장애물
     private bool skillFlag;
-
     
 
     protected override void Awake()
@@ -42,7 +42,7 @@ public class PlayerController : FSMBase {
 
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
 
-        
+        max_distance = 60;
         distance = max_distance;
         skillFlag = false;
         bgm = GameObject.FindGameObjectWithTag("BackgroundRoot").GetComponent<BackGroundMove>();
@@ -52,12 +52,12 @@ public class PlayerController : FSMBase {
     }
     
     // 장애물 이랑 충돌하면 이벤트 함수 발생, other값은 player와 충돌한 객체(장애물)
-    void OnCollisionEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         // 공격해서 장애물이 없어지는 것인지 아니면 장애물이랑 부딪힌 건지
         // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
         // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
-
+        print("Collision");
         if (skillFlag)  // 스킬을 사용했을 때
         {
             other.gameObject.SetActive(false);
@@ -72,19 +72,34 @@ public class PlayerController : FSMBase {
         //Destroy(other.gameObject);
     }
 
+
+    void gameClear() {
+
+
+       // SceneManager.LoadScene(sceneToLoad);
+
+
+    }
+
     protected override void Update()
     {
         base.Update();
 
         // 스킬이면
-        
+
         //Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         //foreach (GameObject obstacle in Obstacles)  
         //{
 
         //    obstacle.transform.Translate(movement);
         //}
-        
+
+        if (distance <= 0)
+        {
+            gameClear();
+            print("Game End");
+
+        }
 
         distance -= bgm.moveSpeed * Time.deltaTime;
         timer += Time.deltaTime;
@@ -157,6 +172,15 @@ public class PlayerController : FSMBase {
         }
     }
 
+    public void DoJump2()
+    {
+        if (state == State.Jump)
+        {
+            jumpSpeed = maxSpeed -2f;
+            SetState(State.Jump2);
+        }
+    }
+
     public void DoJump()
     {
         if (state == State.Run)
@@ -184,6 +208,23 @@ public class PlayerController : FSMBase {
     }
 
     protected virtual void Jump()
+    {
+
+        Debug.Log("Jump");
+        jumpSpeed += characterMass * Physics.gravity.y * Time.deltaTime * 1/2;
+        Vector3 movement = new Vector3(0f, jumpSpeed * Time.deltaTime);
+        //Debug.Log(jumpSpeed * Time.deltaTime);
+        //_cc.Move(movement);
+        transform.Translate(movement);
+
+        if (transform.position.y <= characterAltitude)
+        {
+            transform.position = new Vector3(transform.position.x, characterAltitude);
+            SetState(State.Run);
+        }
+    }
+
+    protected virtual void Jump2()
     {
         jumpSpeed += characterMass * Physics.gravity.y * Time.deltaTime * 1/2;
         Vector3 movement = new Vector3(0f, jumpSpeed * Time.deltaTime);

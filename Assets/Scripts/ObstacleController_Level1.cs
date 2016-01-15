@@ -48,7 +48,7 @@ public class ObstacleController_Level1 : FSMBase
 
                 System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                 int num = rand.Next(2);
-                print(num);
+                //print(num);
 
                 //Invoke 역할 random 시간 지연주기
                 obstacle.transform.position = obsPoints[num].transform.position;
@@ -67,18 +67,19 @@ public class ObstacleController_Level1 : FSMBase
         gameObject.transform.position = obsPoints[num].transform.position;
         gameObject.SetActive(true);
     }
-
+    /*
     void OnTriggerEnter2D(Collider2D coll)
     {
         //충돌한 오브젝트의 이름이 Player일 경우
         if (coll.transform.name == "Player")
         {
+            //print("Collision");
             //coll.gameObject.SetActive(false);
             //SetState(State.Dead);
         }
 
     }
-
+    */
     void Damage()  //Player와 일정 range 안에 들어오면 없어지게
     {
         if ((state == State.Attack) &&

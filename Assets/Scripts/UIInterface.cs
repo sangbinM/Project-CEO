@@ -122,6 +122,13 @@ public class UIInterface : MonoBehaviour
 
     }
 
+
+    public void exit() {
+
+        Application.Quit();
+
+    }
+
     // skill버튼 게이지 테스트 코드 -------------------삭제 예정 테스트 코드
     public void printSkillBtActive()
     {
@@ -281,7 +288,15 @@ public class UIInterface : MonoBehaviour
     {
         // 점프 액션 
         //Debug.Log("점프 시전");
-        playercontroller.DoJump();
+        if (playercontroller.state == FSMBase.State.Jump)
+        {
+            playercontroller.DoJump2();
+        }
+        else
+        {
+            playercontroller.DoJump();
+
+        }
     }
 
     
