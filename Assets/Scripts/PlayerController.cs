@@ -10,8 +10,8 @@ public class PlayerController : FSMBase {
 
     private float characterAltitude;
     private float jumpSpeed;
-    private float maxSpeed = 20f;
-    private float characterMass = 10f;
+    private float maxSpeed = 19f;
+    private float characterMass = 14f;
 
     private float _elapsedTime;
     private float skillTime = 4.0f;
