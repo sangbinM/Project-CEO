@@ -98,14 +98,6 @@ public class PlayerController : FSMBase {
 
         }
 
-        // 충돌 체크 위한 예제 코드 나중에 혜림언니가 장애물 추가 하면 삭제해도 됨
-        Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
-        foreach (GameObject obstacle in Obstacles)
-        {
-
-            obstacle.transform.Translate(movement);
-        }
-
         if (state == State.Dead)
             return;
 
