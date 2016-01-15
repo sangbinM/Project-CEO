@@ -11,8 +11,8 @@ public class PlayerController : FSMBase {
 
     private float characterAltitude;
     private float jumpSpeed;
-    private float maxSpeed = 20f;
-    private float characterMass = 10f;
+    private float maxSpeed = 19f;
+    private float characterMass = 14f;
 
     private float _elapsedTime;
     private float skillTime = 4.0f;
@@ -111,14 +111,6 @@ public class PlayerController : FSMBase {
 
             bgm.moveSpeed = bgm.fixedMoveSpeed;
 
-        }
-
-        // 충돌 체크 위한 예제 코드 나중에 혜림언니가 장애물 추가 하면 삭제해도 됨
-        Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
-        foreach (GameObject obstacle in Obstacles)
-        {
-
-            obstacle.transform.Translate(movement);
         }
 
         if (state == State.Dead)
