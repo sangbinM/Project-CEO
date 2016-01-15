@@ -19,17 +19,6 @@ public class ObstacleController : FSMBase
     private GameObject[] Obstacles;
 
     private GameObject[] obsPoints;
-    private GameObject obsPoint1;
-    private GameObject obsPoint2;
-    private GameObject obsPoint3;
-    private GameObject obsPoint4;
-
-    //public ObstacleState state = ObstacleState.Move;
-
-    //[HideInInspector]
-    //public new Transform transform;
-    //protected Animator _animator;
-
 
     protected override void Awake()
     {
@@ -68,14 +57,6 @@ public class ObstacleController : FSMBase
             }
         }
     }
-
-    /*void Respawn()
-    {
-        obstacle.transform.position = obsPoint1.position;
-        gameObject.SetActive(true);
-
-        //SetState(State.Idle);
-    }*/
 
     void OnTriggerEnter2D(Collider2D coll)
     {
