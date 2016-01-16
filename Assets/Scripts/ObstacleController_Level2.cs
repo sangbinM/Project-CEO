@@ -11,7 +11,6 @@ public class ObstacleController_Level2 : FSMBase
     }
 
     public float moveSpeed = 2f;
-    public float waitTime = 1f;
 
     protected PlayerController _player;
     protected ObstacleController _obstacle;

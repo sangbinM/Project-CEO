@@ -11,7 +11,6 @@ public class ObstacleController_Level3 : FSMBase
     }
 
     public float moveSpeed = 2f;
-    public float waitTime = 1f;
 
     protected PlayerController _player;
     protected ObstacleController _obstacle;
@@ -39,6 +38,8 @@ public class ObstacleController_Level3 : FSMBase
             if (obstacle.transform.position.y == obsPoints[2].transform.position.y)
                 obstacle.SetActive(false);
         }
+
+        npc.SetActive(false);
     }
 
 
@@ -46,7 +47,7 @@ public class ObstacleController_Level3 : FSMBase
     {
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
 
-        if (!isTiming(Time.time))
+        if (!isTiming(Time.time, 10.0f))  // 40초
         {
             foreach (GameObject obstacle in Obstacles)
             {
@@ -66,6 +67,27 @@ public class ObstacleController_Level3 : FSMBase
                 }
             }
 
+        }
+        else if (!isTiming(Time.time, 20.0f))  // 80초
+        {
+            npc.SetActive(true);
+
+            foreach (GameObject obstacle in Obstacles)
+            {
+                obstacle.transform.Translate(movement);
+                npc.transform.Translate(movement);
+
+                if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
+                {
+                    gameObject.SetActive(false);
+
+                    System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+                    int num = rand.Next(2);
+
+                    obstacle.transform.position = obsPoints[num].transform.position;
+                    gameObject.SetActive(true);
+                }
+            }
         }
         else {
 
@@ -104,10 +126,10 @@ public class ObstacleController_Level3 : FSMBase
 
     }
 
-    bool isTiming(float currentTime)
+    bool isTiming(float currentTime, float appearTime)
     {
         float elapsedTime = currentTime - init_time;
-        if (elapsedTime > 40.0f)
+        if (elapsedTime > appearTime)
         {
             return true;
         }

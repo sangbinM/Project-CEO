@@ -59,8 +59,7 @@ public class Intro : MonoBehaviour {
             }
             else
             {
-                InputField.textComponent.text = "오늘만";
-                panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 \"" + InputField.textComponent.text + "\"으로 정하시겠습니까?";
+                panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 \"오늘만\"으로 정하시겠습니까?";
             }
             
         }
