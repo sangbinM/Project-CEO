@@ -46,14 +46,14 @@ public class ObstacleController_Level3 : FSMBase
     protected override void Update()
     {
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
+        Vector3 movement2 = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime / 2;
 
-        if (!isTiming(Time.time, 10.0f))  // 40초
+        if (isTiming(Time.time, 40.0f))
         {
             foreach (GameObject obstacle in Obstacles)
             {
                 obstacle.transform.Translate(movement);
 
-                // x 좌표가 -8 보다 작으면 오브젝트 SetActive False
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
                     gameObject.SetActive(false);
@@ -61,21 +61,20 @@ public class ObstacleController_Level3 : FSMBase
                     System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                     int num = rand.Next(2);
 
-                    //Invoke 역할 random 시간 지연주기
                     obstacle.transform.position = obsPoints[num].transform.position;
                     gameObject.SetActive(true);
                 }
             }
 
         }
-        else if (!isTiming(Time.time, 20.0f))  // 80초
+        else if (isTiming(Time.time, 80.0f))
         {
             npc.SetActive(true);
+            npc.transform.Translate(movement2);
 
             foreach (GameObject obstacle in Obstacles)
             {
                 obstacle.transform.Translate(movement);
-                npc.transform.Translate(movement);
 
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
@@ -90,13 +89,11 @@ public class ObstacleController_Level3 : FSMBase
             }
         }
         else {
-
             foreach (GameObject obstacle in Obstacles)
             {
                 obstacle.SetActive(true);
                 obstacle.transform.Translate(movement);
 
-                // x 좌표가 -8 보다 작으면 오브젝트 SetActive False
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
                     gameObject.SetActive(false);
@@ -104,7 +101,6 @@ public class ObstacleController_Level3 : FSMBase
                     System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                     int num = rand.Next(3);
 
-                    //Invoke 역할 random 시간 지연주기
                     obstacle.transform.position = obsPoints[num].transform.position;
                     gameObject.SetActive(true);
                 }
@@ -129,7 +125,7 @@ public class ObstacleController_Level3 : FSMBase
     bool isTiming(float currentTime, float appearTime)
     {
         float elapsedTime = currentTime - init_time;
-        if (elapsedTime > appearTime)
+        if (elapsedTime < appearTime)
         {
             return true;
         }
