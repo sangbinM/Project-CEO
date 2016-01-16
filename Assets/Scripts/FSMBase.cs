@@ -34,7 +34,7 @@ public class FSMBase : MonoBehaviour {
     {
         Invoke(state.ToString(), 0f);
 
-        Debug.Log(state.ToString());
+        //Debug.Log(state.ToString());
     }
 
     public void SetState(State newState)
