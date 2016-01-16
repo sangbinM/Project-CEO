@@ -27,7 +27,7 @@ public class FSMBase : MonoBehaviour {
     {
         transform = GetComponent<Transform>();
         //_cc = GetComponent<CharacterController>();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     protected virtual void Update()

@@ -13,6 +13,7 @@ public class PlayerController : FSMBase {
     private float jumpSpeed;
     private float maxSpeed = 19f;
     private float characterMass = 14f;
+    private int attackCheck = 0;
 
     private float _elapsedTime;
     private float skillTime = 4.0f;
@@ -64,23 +65,38 @@ public class PlayerController : FSMBase {
             other.gameObject.SetActive(false);
 
         } else {
-            /*
-            if (state == State.Attack)
-            {
-                print("Attack and damage");
-                other.gameObject.SetActive(false);
-                SetState(State.Run);
-            }
-            */
+
             timer = 0;
             bgm.moveFlag = false;
 
         }
 
+        if (state == State.Attack)
+        {
+            attackCheck += 20;
+            if ((attackCheck % 100) == 0)  //스킬 게이지 차서 쓸 수 있음
+            {
+                gameObject.SetActive(false);
+            }
+            else  //스킬 못씀
+            {
+                
+            }
+            print("Attack and damage");
+
+        }
         //print(other.gameObject.name);
         //Destroy(other.gameObject);
     }
 
+    public int GetSkillGaugeValue()
+    {
+        if (attackCheck > 100)
+        {
+            attackCheck = 0;
+        }
+        return attackCheck/5;
+    }
 
     void gameClear() {
 
@@ -106,7 +122,7 @@ public class PlayerController : FSMBase {
         if (distance <= 0)
         {
             gameClear();
-            //print("Game End");
+            print("Game End");
 
         }
 
@@ -205,7 +221,7 @@ public class PlayerController : FSMBase {
         }
         */
         //_obstacle.Damage();
-        SetState(State.Run);
+        //SetState(State.Run);
     }
 
     protected virtual void Jump()
