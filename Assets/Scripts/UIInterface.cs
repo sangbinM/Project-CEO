@@ -13,8 +13,8 @@ public class UIInterface : MonoBehaviour
     public Image AttackButton;
     public Image SkillButton;
     public Image SkillGage;
-    
 
+    public Camera maincamera;
     private int _layerMask;
 
     private int flag;
@@ -26,6 +26,7 @@ public class UIInterface : MonoBehaviour
 
     private Image[] menuPanel;
 
+    public new Canvas ourCanvas;
 
     void Awake() {
 
@@ -55,8 +56,8 @@ public class UIInterface : MonoBehaviour
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
-        
 
+        ourCanvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
     }
 
     private void setTimeText() {
@@ -116,9 +117,11 @@ public class UIInterface : MonoBehaviour
             timer = 0;
             //setTimeText();
         }*/
-        
 
-        ButtonCheck();
+        if (Input.GetMouseButton(0)) {
+            ButtonCheck();
+        }
+            
 
     }
 
@@ -190,6 +193,7 @@ public class UIInterface : MonoBehaviour
 
         // flag 는 공격 버튼 눌렀을 때 활성화
 
+        print("flag : "+flag);
         if (flag == 1 && Input.GetMouseButton(0)) {
             if (CheckTouchUIRound(Input.mousePosition, SkillButton)) { // 드래그 한 것이 스킬 버튼까지 오면
                 if (SkillGage.fillAmount == 1)
@@ -203,26 +207,22 @@ public class UIInterface : MonoBehaviour
 
             }
 
-        } else if (Input.GetMouseButtonUp(0) && flag == 1)    //  공격 버튼 누르고 떼면
-        {
-            if (CheckTouchUIRound(Input.mousePosition, AttackButton)) 
-            {
-                flag = 1;
+        } else if (Input.GetMouseButtonUp(0) && flag == 1) { //  공격 버튼 누르고 떼면
+
+            if (CheckTouchUIRound(Input.mousePosition, AttackButton)) {
+                flag = 0;
                 AttackBt();
             }
         } else if (Input.GetMouseButtonDown(0)) {
 
-            if (CheckTouchUIRound(Input.mousePosition, AttackButton)){
+            if (CheckTouchUIRound(Input.mousePosition, AttackButton))
+            {
                 flag = 1;
-
-            } else if (CheckTouchUIRound(Input.mousePosition, JumpButton)){
-
+            }else if (CheckTouchUIRound(Input.mousePosition, JumpButton)){
                 JumpBt();
+                flag = 0;
             }
 
-        }else {
-
-            flag = 0;
         }
 
     }
@@ -241,24 +241,40 @@ public class UIInterface : MonoBehaviour
 
         return false;
     }
-
+    /*
     private bool CheckTouchUIRound(Vector3 position, Image img)
     {        //버튼이 원형 일 때 
 
-        if (Vector3.Distance(img.transform.position, position) <= img.rectTransform.rect.width / 2)
+        Vector3 screenPos1 = maincamera.ScreenToWorldPoint(position);
+        Vector3 screenPos2 = maincamera.ScreenToWorldPoint(img.transform.position);
+        print("screenPos : " + screenPos1);
+        print("screenPos : " + screenPos2);
+        print("position : " + position);
+        print("img.transform.position : " + img.transform.position);
+        //
+        //if (Vector3.Distance(img.transform.position, position) <= img.rectTransform.rect.width / 2)
+        if (Vector3.Distance(position., img.transform.position) <= img.rectTransform.rect.width / 2)
         {
+            print("Vector3.Distance(img.transform.position, position) : " + Vector3.Distance(screenPos1, screenPos2));
+            print("img.rectTransform.rect.width / 2 : " + img.rectTransform.rect.width / 2);
+
             return true;
         }
 
         return false;
-    }
+    }*/
 
-    /*
+    
     private bool CheckTouchUIRound(Vector3 position, Image img) // 버튼이 원일 때
     {
-        float r = img.rectTransform.rect.width / 2;
-        if ((img.transform.position.x - position.x) * (img.transform.position.x - position.x) 
-            + (img.transform.position.y - position.y) * (img.transform.position.y - position.y) < r*r){
+        // 현재 실제 (월드) 스케일 / 원래 계획된 (캔버스가 생각하는) 스케일
+        print("scale factor" + ourCanvas.scaleFactor);
+        float r = img.rectTransform.rect.width / 2 * ourCanvas.scaleFactor;
+        if (Vector3.Distance(img.transform.position, position) < r){
+            print("r : " + r);
+            print("calculate : "+ Vector3.Distance(img.transform.position, position));
+            print("button position"+ img.transform.position);
+            print("click position" + position);
 
             return true;
 
@@ -266,7 +282,7 @@ public class UIInterface : MonoBehaviour
 
         return false;
     }
-    */
+    
 
 
     public void SkillBt()  // 어택 버튼 눌렸을 때 실행
