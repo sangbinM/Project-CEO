@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 
 // 한 스테이지 당 거리 600
@@ -15,6 +15,7 @@ public class PlayerController : FSMBase {
     private float characterMass = 14f;
     private int attackCheck = 0;
 
+    public string str;
     private float _elapsedTime;
     private float skillTime = 4.0f;
     private float stopWaitTime = 1.0f;
@@ -74,14 +75,17 @@ public class PlayerController : FSMBase {
         if (state == State.Attack)
         {
             attackCheck += 20;
+            /*
             if ((attackCheck % 100) == 0)  //스킬 게이지 차서 쓸 수 있음
             {
-                gameObject.SetActive(false);
+
             }
             else  //스킬 못씀
             {
                 
-            }
+            }*/
+
+            other.gameObject.SetActive(false);
             print("Attack and damage");
 
         }
@@ -101,7 +105,7 @@ public class PlayerController : FSMBase {
     void gameClear() {
 
 
-       // SceneManager.LoadScene(sceneToLoad);
+       SceneManager.LoadScene(sceneToLoad);
 
 
     }
@@ -111,7 +115,7 @@ public class PlayerController : FSMBase {
         base.Update();
 
         // 스킬이면
-
+        print("state"+state);
         //Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         //foreach (GameObject obstacle in Obstacles)  
         //{
@@ -183,6 +187,7 @@ public class PlayerController : FSMBase {
 
     public void DoAttack()
     {
+        print("Do attack");
         if (state == State.Run)
         {
             SetState(State.Attack);
@@ -221,13 +226,13 @@ public class PlayerController : FSMBase {
         }
         */
         //_obstacle.Damage();
-        //SetState(State.Run);
+        SetState(State.Run);
     }
 
     protected virtual void Jump()
     {
 
-        Debug.Log("Jump");
+
         jumpSpeed += characterMass * Physics.gravity.y * Time.deltaTime * 1/2;
         Vector3 movement = new Vector3(0f, jumpSpeed * Time.deltaTime);
         //Debug.Log(jumpSpeed * Time.deltaTime);

@@ -13,7 +13,7 @@ public class UIInterface : MonoBehaviour
     public Image AttackButton;
     public Image SkillButton;
     public Image SkillGage;
-
+    
     public Camera maincamera;
     private int _layerMask;
 
@@ -118,9 +118,7 @@ public class UIInterface : MonoBehaviour
             //setTimeText();
         }*/
 
-        if (Input.GetMouseButton(0)) {
-            ButtonCheck();
-        }
+       ButtonCheck();
             
 
     }
@@ -192,12 +190,11 @@ public class UIInterface : MonoBehaviour
     private void ButtonCheck() {
 
         // flag 는 공격 버튼 눌렀을 때 활성화
-
-
+        
         if (flag == 1 && Input.GetMouseButton(0)) {
+
             if (CheckTouchUIRound(Input.mousePosition, SkillButton)) { // 드래그 한 것이 스킬 버튼까지 오면
-                if (SkillGage.fillAmount == 1)
-                {
+                if (SkillGage.fillAmount == 1){
                     SkillBt();
                     SkillGage.fillAmount = 0;
                 }
@@ -210,12 +207,14 @@ public class UIInterface : MonoBehaviour
             if (CheckTouchUIRound(Input.mousePosition, AttackButton)) {
                 flag = 0;
                 AttackBt();
+                print("up Attack Bt");
             }
+
         } else if (Input.GetMouseButtonDown(0)) {
 
-            if (CheckTouchUIRound(Input.mousePosition, AttackButton))
-            {
+            if (CheckTouchUIRound(Input.mousePosition, AttackButton)){
                 flag = 1;
+                print("press Attack Bt");
             }else if (CheckTouchUIRound(Input.mousePosition, JumpButton)){
                 JumpBt();
                 flag = 0;
@@ -239,6 +238,7 @@ public class UIInterface : MonoBehaviour
 
         return false;
     }
+
     /*
     private bool CheckTouchUIRound(Vector3 position, Image img)
     {        //버튼이 원형 일 때 
