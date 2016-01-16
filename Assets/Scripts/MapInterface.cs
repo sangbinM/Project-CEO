@@ -8,8 +8,7 @@ public class MapInterface : MonoBehaviour {
     public Button[] StageButton;
     public int[] playTime;
     // 플레이 타임이 (-1)이면 아직 성공하지 못한 스테이지
-    public string[] StageDetail = new string[] {"대리 던전",
-        "과장 던전", "부장 던전", "전무 던전", "사장 던전" };
+    public string[] StageDetail;
     
     public string sceneToLoad;
 
@@ -30,7 +29,8 @@ public class MapInterface : MonoBehaviour {
         startText.enabled = false;
         endText.enabled = false;
         panelText.enabled = false;
-        //playTime = new int[] { 40, 50, 60, 70, -1 };
+        playTime = GameData.data.times;
+        StageDetail = new string[] {"대리 던전", "과장 던전", "부장 던전", "전무 던전", "사장 던전" };
         setStageTime();
     }
 
