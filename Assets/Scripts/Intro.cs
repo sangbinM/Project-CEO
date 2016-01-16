@@ -37,19 +37,20 @@ public class Intro : MonoBehaviour {
 
         // 로드할 데이터가 없을 때를 위한 디폴트 값
         //GameData.data.playerName = "오늘만";
-        GameData.data.stars = new int[] { -1, -1, -1, -1, -1 };
-        GameData.data.times = new int[] { -1, -1, -1, -1, -1 };
+        //GameData.data.stars = new int[] { -1, -1, -1, -1, -1 };
+        //GameData.data.times = new int[] { -1, -1, -1, -1, -1 };
 
-        GameData.data.Load();
+        //GameData.data.Load();
 
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         
     }
 	
     void Update() {
         if (Input.GetMouseButtonDown(0)) // start 눌렸을 때
         {
-            _player.SetName(InputField.textComponent.text);
+            //_player.SetName(InputField.textComponent.text);
+            GameData.data.playerName = InputField.textComponent.text;
             //Debug.Log(InputField.textComponent.text.ToString());
             
             if(InputField.textComponent.text != "")

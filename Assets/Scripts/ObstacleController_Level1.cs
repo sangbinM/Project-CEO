@@ -47,10 +47,6 @@ public class ObstacleController_Level1 : FSMBase
 
                 System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                 int num = rand.Next(2);
-<<<<<<< HEAD
-                //print(num);
-=======
->>>>>>> origin/master
 
                 //Invoke 역할 random 시간 지연주기
                 obstacle.transform.position = obsPoints[num].transform.position;
