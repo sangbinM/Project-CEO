@@ -59,7 +59,8 @@ public class Intro : MonoBehaviour {
             }
             else
             {
-                panelText.text = "캐릭터명 입력 에러입니다.";
+                InputField.textComponent.text = "오늘만";
+                panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 \"" + InputField.textComponent.text + "\"으로 정하시겠습니까?";
             }
             
         }

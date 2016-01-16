@@ -78,35 +78,5 @@ public class ObstacleController_Level1 : FSMBase
 
     }
     */
-    void Damage()  //Player와 일정 range 안에 들어오면 없어지게
-    {
-        if ((state == State.Attack) &&
-            ((_player.transform.position.x - gameObject.transform.position.x) < 3f))
-        {
-            gameObject.SetActive(false);
-
-            Invoke();
-        }
-    }
-
-    void DoSkill(float skillTime)  // 스킬 발동 되면 화면 내 obstacle 다 없어짐
-    {
-        var watch = Stopwatch.StartNew();
-
-        watch.Stop();
-
-        if (watch.ElapsedMilliseconds < 3000)
-        {
-            foreach (GameObject obstacle in Obstacles)
-            {
-                gameObject.SetActive(false);
-            }
-
-            watch.Start();
-        }
-        else
-        {
-            return;
-        }
-    }
+   
 }
