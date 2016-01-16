@@ -8,12 +8,14 @@ public class MapInterface : MonoBehaviour {
     public Button[] StageButton;
     public int[] playTime;
     // 플레이 타임이 (-1)이면 아직 성공하지 못한 스테이지
+    public string[] StageInfo;
     public string[] StageDetail;
     
     public string sceneToLoad;
 
     public Image panel;
-    public Text panelText;
+    public Text panelInfo;
+    public Text panelDetail;
     public Image startButton;
     public Text startText;
     public Image endButton;
@@ -28,13 +30,15 @@ public class MapInterface : MonoBehaviour {
         endButton.enabled = false;
         startText.enabled = false;
         endText.enabled = false;
-        panelText.enabled = false;
+        panelInfo.enabled = false;
+        panelDetail.enabled = false;
         playTime = GameData.data.times;
-        StageDetail = new string[] {"대리 던전 \n 피곤에 지친 대리님들로 가득한 던전입니다. 주의 요망!",
-            "과장 던전 \n 고통받는 과장님들의 단말마가 울려퍼지는 던전입니다. 한적한 곳은 피하십시오!",
-            "부장 던전 \n 경고! 분노에 찬 부장님들의 시선을 피하십시오. 아무 말도 할 수 없게 됩니다!",
-            "임원 던전 \n 공포스런 임원님들이 뿜어내는 냉기로 몸이 굳습니다. 공포를 이겨내고 던전을 클리어하십시오!",
-            "사장 던전 \n 심연의 사장님이 계신 곳입니다. 겸손한 마음으로 임하십시오!" };
+        StageInfo = new string[] { "대리 던전", "과장 던전", "부장 던전", "임원 던전", "사장 던전" };
+        StageDetail = new string[] {"피곤에 지친 대리님들로 가득한 던전입니다. 주의 요망!",
+            "고통받는 과장님들의 단말마가 울려퍼지는 던전입니다. 한적한 곳은 피하십시오!",
+            "경고! 분노에 찬 부장님들의 시선을 피하십시오. 아무 말도 할 수 없게 됩니다!",
+            "공포스런 임원님들이 뿜어내는 냉기로 몸이 굳습니다. 공포를 이겨내고 던전을 클리어하십시오!",
+            "심연의 사장님이 계신 곳입니다. 겸손한 마음으로 임하십시오!" };
         setStageTime();
     }
 
@@ -76,7 +80,8 @@ public class MapInterface : MonoBehaviour {
     {
         //sceneToLoad = "Stage" + stageNum;
         sceneToLoad = "First Scene";
-        panelText.text = StageDetail[stageNum - 1];
+        panelInfo.text = StageInfo[stageNum - 1];
+        panelDetail.text = StageDetail[stageNum - 1];
         /*
         switch (stageNum)
         {
@@ -110,7 +115,8 @@ public class MapInterface : MonoBehaviour {
         endButton.enabled = true;
         startText.enabled = true;
         endText.enabled = true;
-        panelText.enabled = true;
+        panelInfo.enabled = true;
+        panelDetail.enabled = true;
     }
 
     public void OpenStage()
@@ -125,7 +131,8 @@ public class MapInterface : MonoBehaviour {
         endButton.enabled = false;
         startText.enabled = false;
         endText.enabled = false;
-        panelText.enabled = false;
+        panelInfo.enabled = false;
+        panelDetail.enabled = false;
     }
 
     private void setStageTime()
@@ -154,7 +161,7 @@ public class MapInterface : MonoBehaviour {
                     cb.disabledColor = Color.black;
                     bt.colors = cb;
                 }
-                StageDetail[i] = StageDetail[i] + "\n 미정복";
+                StageInfo[i] = StageInfo[i] + "\n 미정복";
             }
             else
             {
@@ -171,7 +178,7 @@ public class MapInterface : MonoBehaviour {
                 else
                     secondS = second.ToString();
 
-                StageDetail[i] = StageDetail[i] + "\n" + minuteS + ":" + secondS;
+                StageInfo[i] = StageInfo[i] + "\n 클리어 시간 " + minuteS + ":" + secondS;
             }
         }
     }
