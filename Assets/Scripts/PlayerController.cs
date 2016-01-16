@@ -64,17 +64,19 @@ public class PlayerController : FSMBase {
             other.gameObject.SetActive(false);
 
         } else {
-
+            /*
+            if (state == State.Attack)
+            {
+                print("Attack and damage");
+                other.gameObject.SetActive(false);
+                SetState(State.Run);
+            }
+            */
             timer = 0;
             bgm.moveFlag = false;
 
         }
 
-        if (state == State.Attack)
-        {
-            print("Attack and damage");
-            gameObject.SetActive(false);
-        }
         //print(other.gameObject.name);
         //Destroy(other.gameObject);
     }
@@ -104,7 +106,7 @@ public class PlayerController : FSMBase {
         if (distance <= 0)
         {
             gameClear();
-            print("Game End");
+            //print("Game End");
 
         }
 
@@ -203,7 +205,7 @@ public class PlayerController : FSMBase {
         }
         */
         //_obstacle.Damage();
-        //SetState(State.Run);
+        SetState(State.Run);
     }
 
     protected virtual void Jump()
