@@ -109,7 +109,7 @@ public class UIInterface : MonoBehaviour
         //Time.timeScale;
         setDistanceBar();
         //timer += Time.deltaTime;
-        SkillGage.fillAmount += Time.deltaTime/5;
+        //SkillGage.fillAmount += Time.deltaTime/5;
         setTimeText();
         /*
         if (timer >= 1) { 

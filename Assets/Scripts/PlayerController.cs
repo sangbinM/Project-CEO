@@ -13,6 +13,7 @@ public class PlayerController : FSMBase {
     private float jumpSpeed;
     private float maxSpeed = 19f;
     private float characterMass = 14f;
+    private int attackCheck = 0;
 
     private float _elapsedTime;
     private float skillTime = 4.0f;
@@ -72,13 +73,30 @@ public class PlayerController : FSMBase {
 
         if (state == State.Attack)
         {
+            attackCheck += 20;
+            if ((attackCheck % 100) == 0)  //스킬 게이지 차서 쓸 수 있음
+            {
+                gameObject.SetActive(false);
+            }
+            else  //스킬 못씀
+            {
+                
+            }
             print("Attack and damage");
-            gameObject.SetActive(false);
+
         }
         //print(other.gameObject.name);
         //Destroy(other.gameObject);
     }
 
+    public int GetSkillGaugeValue()
+    {
+        if (attackCheck > 100)
+        {
+            attackCheck = 0;
+        }
+        return attackCheck/5;
+    }
 
     void gameClear() {
 
