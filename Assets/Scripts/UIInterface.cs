@@ -26,7 +26,7 @@ public class UIInterface : MonoBehaviour
 
     private Image[] menuPanel;
 
-    public new Canvas ourCanvas;
+    public Canvas ourCanvas;
 
     void Awake() {
 
