@@ -67,14 +67,18 @@ public class ObstacleController : FSMBase
 
     }
 
-    void Damage()  //Player와 일정 range 안에 들어오면 없어지게
+    /*
+    public void Damage()  //Player와 일정 range 안에 들어오면 없어지게
     {
+        print("Damage in");
         if((state == State.Attack) && 
             ((_player.transform.position.x - gameObject.transform.position.x) < 3f))
         {
+            print("Attack and damage");
             gameObject.SetActive(false);
         }
     }
+    */
 
     void DoSkill(float skillTime)  // 스킬 발동 되면 화면 내 obstacle 다 없어짐
     {

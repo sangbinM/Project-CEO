@@ -45,6 +45,7 @@ public class PlayerController : FSMBase {
         max_distance = 60;
         distance = max_distance;
         skillFlag = false;
+        _obstacle = GameObject.FindGameObjectWithTag("obstacle").GetComponent<ObstacleController>();
         bgm = GameObject.FindGameObjectWithTag("BackgroundRoot").GetComponent<BackGroundMove>();
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
         characterAltitude = transform.position.y;
@@ -67,6 +68,12 @@ public class PlayerController : FSMBase {
             timer = 0;
             bgm.moveFlag = false;
 
+        }
+
+        if (state == State.Attack)
+        {
+            print("Attack and damage");
+            gameObject.SetActive(false);
         }
         //print(other.gameObject.name);
         //Destroy(other.gameObject);
@@ -195,8 +202,8 @@ public class PlayerController : FSMBase {
             //_obstacle.Damage();
         }
         */
-
-        SetState(State.Run);
+        //_obstacle.Damage();
+        //SetState(State.Run);
     }
 
     protected virtual void Jump()
