@@ -64,6 +64,7 @@ public class ObstacleController_Level4 : FSMBase
 
                     //Invoke 역할 random 시간 지연주기
                     obstacle.transform.position = obsPoints[num].transform.position;
+                    obstacle.SetActive(true);
                     gameObject.SetActive(true);
                 }
             }
@@ -86,6 +87,7 @@ public class ObstacleController_Level4 : FSMBase
                     int num = rand.Next(2);
 
                     obstacle.transform.position = obsPoints[num].transform.position;
+                    obstacle.SetActive(true);
                     gameObject.SetActive(true);
                 }
             }
@@ -106,6 +108,7 @@ public class ObstacleController_Level4 : FSMBase
 
                     //Invoke 역할 random 시간 지연주기
                     obstacle.transform.position = obsPoints[num].transform.position;
+                    obstacle.SetActive(true);
                     gameObject.SetActive(true);
                 }
 

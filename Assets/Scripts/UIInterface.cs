@@ -193,16 +193,14 @@ public class UIInterface : MonoBehaviour
 
         // flag 는 공격 버튼 눌렀을 때 활성화
 
-        print("flag : "+flag);
+
         if (flag == 1 && Input.GetMouseButton(0)) {
             if (CheckTouchUIRound(Input.mousePosition, SkillButton)) { // 드래그 한 것이 스킬 버튼까지 오면
                 if (SkillGage.fillAmount == 1)
                 {
                     SkillBt();
-                    print("SkillBt Active");
                     SkillGage.fillAmount = 0;
                 }
-                print("SkillBt checked");
                 flag = 0;
 
             }
@@ -268,13 +266,15 @@ public class UIInterface : MonoBehaviour
     private bool CheckTouchUIRound(Vector3 position, Image img) // 버튼이 원일 때
     {
         // 현재 실제 (월드) 스케일 / 원래 계획된 (캔버스가 생각하는) 스케일
-        print("scale factor" + ourCanvas.scaleFactor);
+        //print("scale factor" + ourCanvas.scaleFactor);
         float r = img.rectTransform.rect.width / 2 * ourCanvas.scaleFactor;
         if (Vector3.Distance(img.transform.position, position) < r){
+            /*
             print("r : " + r);
             print("calculate : "+ Vector3.Distance(img.transform.position, position));
             print("button position"+ img.transform.position);
             print("click position" + position);
+            */
 
             return true;
 

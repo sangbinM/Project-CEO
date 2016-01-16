@@ -62,6 +62,7 @@ public class ObstacleController_Level3 : FSMBase
                     int num = rand.Next(2);
 
                     obstacle.transform.position = obsPoints[num].transform.position;
+                    obstacle.SetActive(true);
                     gameObject.SetActive(true);
                 }
             }
@@ -84,6 +85,7 @@ public class ObstacleController_Level3 : FSMBase
                     int num = rand.Next(2);
 
                     obstacle.transform.position = obsPoints[num].transform.position;
+                    obstacle.SetActive(true);
                     gameObject.SetActive(true);
                 }
             }
@@ -102,6 +104,7 @@ public class ObstacleController_Level3 : FSMBase
                     int num = rand.Next(3);
 
                     obstacle.transform.position = obsPoints[num].transform.position;
+                    obstacle.SetActive(true);
                     gameObject.SetActive(true);
                 }
 
