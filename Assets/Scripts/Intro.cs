@@ -42,14 +42,15 @@ public class Intro : MonoBehaviour {
 
         //GameData.data.Load();
 
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         
     }
 	
     void Update() {
         if (Input.GetMouseButtonDown(0)) // start 눌렸을 때
         {
-            _player.SetName(InputField.textComponent.text);
+            //_player.SetName(InputField.textComponent.text);
+            GameData.data.playerName = InputField.textComponent.text;
             //Debug.Log(InputField.textComponent.text.ToString());
             
             if(InputField.textComponent.text != "")

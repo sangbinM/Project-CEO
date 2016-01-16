@@ -30,7 +30,11 @@ public class MapInterface : MonoBehaviour {
         endText.enabled = false;
         panelText.enabled = false;
         playTime = GameData.data.times;
-        StageDetail = new string[] {"대리 던전", "과장 던전", "부장 던전", "전무 던전", "사장 던전" };
+        StageDetail = new string[] {"대리 던전 \n 피곤에 지친 대리님들로 가득한 던전입니다. 주의 요망!",
+            "과장 던전 \n 고통받는 과장님들의 단말마가 울려퍼지는 던전입니다. 한적한 곳은 피하십시오!",
+            "부장 던전 \n 경고! 분노에 찬 부장님들의 시선을 피하십시오. 아무 말도 할 수 없게 됩니다!",
+            "임원 던전 \n 공포스런 임원님들이 뿜어내는 냉기로 몸이 굳습니다. 공포를 이겨내고 던전을 클리어하십시오!",
+            "사장 던전 \n 심연의 사장님이 계신 곳입니다. 겸손한 마음으로 임하십시오!" };
         setStageTime();
     }
 
