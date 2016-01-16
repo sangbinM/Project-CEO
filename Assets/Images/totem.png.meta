@@ -1,0 +1,144 @@
+fileFormatVersion: 2
+guid: 35dfa4ed5b2565b409a53f7a6789fa18
+timeCreated: 1452965623
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: totem_0
+    21300002: totem_1
+    21300004: totem_2
+    21300006: totem_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: totem_0
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 328
+        width: 190
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 38, y: 130.5}
+        - {x: -32, y: 130.5}
+        - {x: -55, y: 89.5}
+        - {x: -95, y: -16.5}
+        - {x: -95, y: -130.5}
+        - {x: 31, y: -130.5}
+        - {x: 48, y: -112.5}
+        - {x: 95, y: -75.5}
+        - {x: 95, y: 39.5}
+    - name: totem_1
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 333
+        width: 195
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 31.5, y: -95.5}
+        - {x: 97.5, y: -41.5}
+        - {x: 97.5, y: -18.5}
+        - {x: 88.5, y: -10.5}
+        - {x: 18.5, y: 132.5}
+        - {x: -59.5, y: 132.5}
+        - {x: -97.5, y: 60.5}
+        - {x: -97.5, y: -132.5}
+        - {x: 40.5, y: -132.5}
+        - {x: 57.5, y: -118.5}
+        - {x: 56.5, y: -107.5}
+        - {x: 44.5, y: -97.5}
+    - name: totem_2
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 322
+        width: 191
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 21.5, y: 125.5}
+        - {x: 16.5, y: 127.5}
+        - {x: -5.5, y: 127.5}
+        - {x: -95.5, y: 14.5}
+        - {x: -95.5, y: -127.5}
+        - {x: 54.5, y: -127.5}
+        - {x: 95.5, y: -81.5}
+        - {x: 95.5, y: -4.5}
+        - {x: 62.5, y: 11.5}
+    - name: totem_3
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 17
+        width: 195
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2.5, y: 132}
+        - {x: -5.5, y: 130}
+        - {x: -97.5, y: 30}
+        - {x: -97.5, y: -127}
+        - {x: -88.5, y: -132}
+        - {x: 74.5, y: -132}
+        - {x: 97.5, y: -60}
+        - {x: 97.5, y: 11}
+        - {x: 21.5, y: 132}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
