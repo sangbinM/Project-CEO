@@ -44,12 +44,10 @@ public class ObstacleController : FSMBase
             // x 좌표가 -8 보다 작으면 오브젝트 SetActive False
             if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
             {
-                gameObject.SetActive(false);
-                //Invoke("Respawn", 0f);
+                gameObject.SetActive(false);;
 
                 System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                 int num = rand.Next(3);
-                print(num);
 
                 //Invoke 역할 random 시간 지연주기
                 obstacle.transform.position = obsPoints[num].transform.position;
