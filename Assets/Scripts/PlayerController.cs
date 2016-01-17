@@ -22,10 +22,10 @@ public class PlayerController : FSMBase
     //private int _layermask;
 
     public float distance;
-    public float max_distance = 30;
+    public float max_distance = 300;
 
     private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
-    private GameObject obsPoint_mid;
+    private GameObject collidedObstacle;
     private PlayerController _player;
     public BackGroundMove bgm;
 
@@ -37,8 +37,6 @@ public class PlayerController : FSMBase
     {
         base.Awake();
 
-        max_distance = 30;
-
         distance = max_distance;
         skillFlag = false;
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -46,7 +44,6 @@ public class PlayerController : FSMBase
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
         characterAltitude = transform.position.y;
         ourInterface = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().GetComponent<UIInterface>();
-        obsPoint_mid = GameObject.FindGameObjectWithTag("obstaclePos3");
     }
     
     // 장애물 이랑 충돌하면 이벤트 함수 발생, other값은 player와 충돌한 객체(장애물)
@@ -56,16 +53,18 @@ public class PlayerController : FSMBase
         // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
         // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
         //print("Collision");
+        collidedObstacle = other.gameObject;
         if (skillFlag)  // 스킬을 사용했을 때
         {
-            other.gameObject.SetActive(false);
-
-        } /*  other.gameObject.SetActive(false);
+            collidedObstacle.SetActive(false);
+        }
+        /*  other.gameObject.SetActive(false);
             //other.gameObject.transform.Translate(+10.0f, 0, 0);
             print("Attack and damage");
 
-        }*/ else {
-
+        }*/
+        else
+        {
             timer = 0;
             bgm.moveFlag = false;
             numAttack = 0;
@@ -112,6 +111,9 @@ public class PlayerController : FSMBase
             skillFlag = false;
             SetState(State.Run);
         }
+
+        if (collidedObstacle.transform.position.x < _player.transform.position.x)
+            collidedObstacle = null;
 
         if (state == State.Dead)
             return;
@@ -181,17 +183,23 @@ public class PlayerController : FSMBase
             }
         }
 
-        if (minDist < 3.0f && target != null)
+        if (collidedObstacle == target)
         {
-            print("Attack and damage");
-            target.gameObject.SetActive(false);
-            //obstacle.transform.position = new Vector3 ()
-            numAttack += 1;
-            if (numAttack > 5)
-            {
-                numAttack = 5;
+            print("target has collided!");
+        }
+        else if (minDist < 3.0f && target != null)
+        {
+            if (target.gameObject.name == "obstacle_mid") {
+                print("Attack and damage");
+                target.gameObject.SetActive(false);
+                //obstacle.transform.position = new Vector3 ()
+                numAttack += 1;
+                if (numAttack > 5)
+                {
+                    numAttack = 5;
+                }
+                print(numAttack);
             }
-            print(numAttack);
         }
         SetState(State.Run);
     }
