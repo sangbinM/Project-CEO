@@ -36,6 +36,8 @@ public class UIInterface : MonoBehaviour
 
     public string sceneToLoad;
 
+    private GameObject[] levels;
+
     void Awake()
     {
         init_time = Time.time;
@@ -45,6 +47,15 @@ public class UIInterface : MonoBehaviour
 
         stageNum = PlayerPrefs.GetInt("stageNum");
         TimeText.text = "00:00:00";
+
+        levels = new GameObject[5];
+        levels[0] = GameObject.FindGameObjectWithTag("level1");
+        levels[1] = GameObject.FindGameObjectWithTag("level2");
+        levels[2] = GameObject.FindGameObjectWithTag("level3");
+        levels[3] = GameObject.FindGameObjectWithTag("level4");
+        levels[4] = GameObject.FindGameObjectWithTag("level5");
+
+        selectLevel();
         switch (stageNum)
         {
             case 1:
@@ -66,6 +77,7 @@ public class UIInterface : MonoBehaviour
                 PlayerLevel.text = "스테이지 넘버 오류";
                 break;
         }
+
         PlayerName.text = GameData.data.playerName;
         DistanceBar.fillAmount = 0.0f;
         //setTimeText();
@@ -99,6 +111,15 @@ public class UIInterface : MonoBehaviour
         sceneToLoad = "Map";
     }
 
+    void selectLevel()
+    {
+        for(int i=0; i<5; ++i)
+        {
+            levels[i].SetActive(false);
+        }
+        levels[stageNum - 1].SetActive(true);
+    }
+
     public void nextScene()
     {
         Time.timeScale = 1.0f;
@@ -118,6 +139,7 @@ public class UIInterface : MonoBehaviour
         print("clear panel open");
         clearPanel.enabled = true;
         clearText.text = "스테이지 클리어 \n" + GameData.data.playerName;
+
         switch (stageNum)
         {
             case 1:
@@ -194,6 +216,7 @@ public class UIInterface : MonoBehaviour
 
     void Update()
     {
+        
         setDistanceBar();
         //SkillGage.fillAmount += Time.deltaTime/5;
         setTimeText();
@@ -280,14 +303,14 @@ public class UIInterface : MonoBehaviour
             if (CheckTouchUIRound(Input.mousePosition, AttackButton)) {
                 flag = 0;
                 AttackBt();
-                print("up Attack Bt");
+                //print("up Attack Bt");
             }
 
         } else if (Input.GetMouseButtonDown(0)) {
 
             if (CheckTouchUIRound(Input.mousePosition, AttackButton)){
                 flag = 1;
-                print("press Attack Bt");
+                //print("press Attack Bt");
             }else if (CheckTouchUIRound(Input.mousePosition, JumpButton)){
                 JumpBt();
                 flag = 0;

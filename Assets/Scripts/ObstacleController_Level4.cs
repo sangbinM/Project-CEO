@@ -3,16 +3,10 @@ using System.Collections;
 using System.Diagnostics;
 using System;
 
-public class ObstacleController_Level4 : FSMBase
+public class ObstacleController_Level4 : MonoBehaviour
 {
-    public enum ObstacleState
-    {
-        Idle, Move, Effect
-    }
-
     public float moveSpeed = 2f;
 
-    protected PlayerController _player;
     protected ObstacleController _obstacle;
 
     private GameObject[] Obstacles;
@@ -20,10 +14,9 @@ public class ObstacleController_Level4 : FSMBase
     private float init_time;
     private GameObject npc;
 
-    protected override void Awake()
+    void Start()
     {
         init_time = Time.time;
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
         obsPoints = new GameObject[4];
@@ -42,8 +35,7 @@ public class ObstacleController_Level4 : FSMBase
         npc.SetActive(false);
     }
 
-
-    protected override void Update()
+    void Update()
     {
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         Vector3 movement2 = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime / 2;
@@ -57,15 +49,12 @@ public class ObstacleController_Level4 : FSMBase
                 // x 좌표가 -8 보다 작으면 오브젝트 SetActive False
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
-                    gameObject.SetActive(false);
-
                     System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                     int num = rand.Next(2);
 
                     //Invoke 역할 random 시간 지연주기
                     obstacle.transform.position = obsPoints[num].transform.position;
                     obstacle.SetActive(true);
-                    gameObject.SetActive(true);
                 }
             }
 
@@ -81,35 +70,28 @@ public class ObstacleController_Level4 : FSMBase
 
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
-                    gameObject.SetActive(false);
-
                     System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                     int num = rand.Next(2);
 
                     obstacle.transform.position = obsPoints[num].transform.position;
                     obstacle.SetActive(true);
-                    gameObject.SetActive(true);
                 }
             }
         }
         else {
             foreach (GameObject obstacle in Obstacles)
             {
-                obstacle.SetActive(true);
                 obstacle.transform.Translate(movement);
 
                 // x 좌표가 -8 보다 작으면 오브젝트 SetActive False
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
-                    gameObject.SetActive(false);
-
                     System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                     int num = rand.Next(3);
 
                     //Invoke 역할 random 시간 지연주기
                     obstacle.transform.position = obsPoints[num].transform.position;
                     obstacle.SetActive(true);
-                    gameObject.SetActive(true);
                 }
 
             }

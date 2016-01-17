@@ -26,6 +26,7 @@ public class PlayerController : FSMBase
 
     private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
     private GameObject collidedObstacle;
+    private GameObject obsPos_mid;
     private PlayerController _player;
     public BackGroundMove bgm;
 
@@ -44,8 +45,9 @@ public class PlayerController : FSMBase
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
         characterAltitude = transform.position.y;
         ourInterface = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().GetComponent<UIInterface>();
+        obsPos_mid = GameObject.FindGameObjectWithTag("obstaclePos3");
     }
-    
+
     // 장애물 이랑 충돌하면 이벤트 함수 발생, other값은 player와 충돌한 객체(장애물)
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -67,6 +69,7 @@ public class PlayerController : FSMBase
         {
             timer = 0;
             bgm.moveFlag = false;
+
             numAttack = 0;
         }
         //print(other.gameObject.name);
@@ -89,7 +92,7 @@ public class PlayerController : FSMBase
         base.Update();
 
         // 스킬이면
-        print("state"+state);
+        //print("state" + state);
 
         if (distance <= 0 && distance > -1000)
         {
@@ -112,7 +115,7 @@ public class PlayerController : FSMBase
             SetState(State.Run);
         }
 
-        if (collidedObstacle.transform.position.x < _player.transform.position.x)
+        if (collidedObstacle != null && collidedObstacle.transform.position.x < _player.transform.position.x)
             collidedObstacle = null;
 
         if (state == State.Dead)
@@ -126,7 +129,7 @@ public class PlayerController : FSMBase
         timer = 0;
         bgm.moveFlag = true;
         bgm.moveSpeed = bgm.fixedMoveSpeed * 2;
-        
+
         if (state == State.Run)
         {
             _elapsedTime = 0.0f;
@@ -136,7 +139,7 @@ public class PlayerController : FSMBase
 
     public void DoAttack()
     {
-        print("Do attack");
+        //print("Do attack");
         if (state == State.Run)
         {
             SetState(State.Attack);
@@ -147,7 +150,7 @@ public class PlayerController : FSMBase
     {
         if (state == State.Jump)
         {
-            jumpSpeed = maxSpeed -2f;
+            jumpSpeed = maxSpeed - 2f;
             SetState(State.Jump2);
         }
     }
@@ -168,11 +171,11 @@ public class PlayerController : FSMBase
 
     protected virtual void Attack()
     {
-        print("Attack function work");
+        //print("Attack function work");
         GameObject target = null;
         float minDist = 1000.0f;
         float dist;
-        
+
         foreach (GameObject obstacle in Obstacles)
         {
             dist = obstacle.transform.position.x - _player.transform.position.x;
@@ -180,17 +183,29 @@ public class PlayerController : FSMBase
             {
                 minDist = dist;
                 target = obstacle;
+                //print("target name is " + target.gameObject.name);
             }
         }
-
         if (collidedObstacle == target)
         {
-            print("target has collided!");
+            //print("target has collided!");
         }
         else if (minDist < 3.0f && target != null)
         {
-            if (target.gameObject.name == "obstacle_mid") {
-                print("Attack and damage");
+            //print("okoko");
+            //print("y position : " + target.gameObject.transform.position.y);
+            if (target.transform.position.y == obsPos_mid.transform.position.y)
+            {
+                //print("Attack and damage");
+                if (target.gameObject.name == "obstacle_down")
+                {
+
+
+                    print("Down!!");
+                    target.gameObject.SetActive(false);
+                    //target.SetActive(false);
+
+                }
                 target.gameObject.SetActive(false);
                 //obstacle.transform.position = new Vector3 ()
                 numAttack += 1;
@@ -198,15 +213,19 @@ public class PlayerController : FSMBase
                 {
                     numAttack = 5;
                 }
-                print(numAttack);
+                //print(numAttack);
             }
+        }
+        else
+        {
+            //print("333");
         }
         SetState(State.Run);
     }
 
     protected virtual void Jump()
     {
-        jumpSpeed += characterMass * Physics.gravity.y * Time.deltaTime * 1/2;
+        jumpSpeed += characterMass * Physics.gravity.y * Time.deltaTime * 1 / 2;
         Vector3 movement = new Vector3(0f, jumpSpeed * Time.deltaTime);
         transform.Translate(movement);
 
@@ -219,7 +238,7 @@ public class PlayerController : FSMBase
 
     protected virtual void Jump2()
     {
-        jumpSpeed += characterMass * Physics.gravity.y * Time.deltaTime * 1/2;
+        jumpSpeed += characterMass * Physics.gravity.y * Time.deltaTime * 1 / 2;
         Vector3 movement = new Vector3(0f, jumpSpeed * Time.deltaTime);
         transform.Translate(movement);
 
@@ -237,6 +256,6 @@ public class PlayerController : FSMBase
 
     protected virtual void Skill()
     {
-        
+
     }
 }
