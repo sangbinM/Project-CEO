@@ -106,7 +106,8 @@ public class UIInterface : MonoBehaviour
     public void gameClear()
     {
         print("clear time : " + clearTime);
-        GameData.data.times[stageNum-1] = clearTime;
+        if (GameData.data.times[stageNum - 1] > clearTime)
+            GameData.data.times[stageNum - 1] = clearTime;
         GameData.data.stars[stageNum-1] = 3;
         GameData.data.Save();
 
