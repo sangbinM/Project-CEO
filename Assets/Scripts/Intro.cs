@@ -20,7 +20,21 @@ public class Intro : MonoBehaviour {
     public Text panelText;
 
     // Use this for initialization
-    void Awake () {
+   /* void Awake () {
+        
+
+        
+        GameData.data.playerName = "오늘만";
+        GameData.data.stars = new int[] { 3, 2, 1, -1, -1 };
+        GameData.data.times = new int[] { 50, 60, 70, -1, -1 };
+        GameData.data.Save();
+        
+        
+        //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();        
+    }*/
+
+    void Start()
+    {
         panel.enabled = false;
         popButton1.enabled = false;
         popButton2.enabled = false;
@@ -28,39 +42,18 @@ public class Intro : MonoBehaviour {
         b2Text.enabled = false;
         panelText.enabled = false;
 
-        /*
-        GameData.data.playerName = "오늘만";
-        GameData.data.stars = new int[] { 3, 2, 1, -1, -1 };
-        GameData.data.times = new int[] { 50, 60, 70, -1, -1 };
-        GameData.data.Save();
-        */
-
         // 로드할 데이터가 없을 때를 위한 디폴트 값
         GameData.data.stars = new int[] { -1, -1, -1, -1, -1 };
         GameData.data.times = new int[] { -1, -1, -1, -1, -1 };
 
         GameData.data.Load();
 
-        //_player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         
     }
-	
+
     void Update() {
         if (Input.GetMouseButtonDown(0)) // start 눌렸을 때
         {
-            //_player.SetName(InputField.textComponent.text);
-            GameData.data.playerName = InputField.textComponent.text;
-            //Debug.Log(InputField.textComponent.text.ToString());
-            
-            if(InputField.textComponent.text != "")
-            {
-                panelText.text = "캐릭터명을 " + InputField.textComponent.text + "으로 정하시겠습니까?";
-            }
-            else
-            {
-                GameData.data.playerName = "오늘만";
-                panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 " + GameData.data.playerName + "으로 정하시겠습니까?";
-            }
             
         }
     }
@@ -75,6 +68,19 @@ public class Intro : MonoBehaviour {
         b2Text.enabled = true;
         panelText.enabled = true;
 
+        //_player.SetName(InputField.textComponent.text);
+        GameData.data.playerName = InputField.textComponent.text;
+        //Debug.Log(InputField.textComponent.text.ToString());
+
+        if (InputField.textComponent.text != "")
+        {
+            panelText.text = "캐릭터명을 " + InputField.textComponent.text + "으로 정하시겠습니까?";
+        }
+        else
+        {
+            GameData.data.playerName = "오늘만";
+            panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 " + GameData.data.playerName + "으로 정하시겠습니까?";
+        }
     }
 
     public void ClosePopup()

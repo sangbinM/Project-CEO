@@ -44,7 +44,7 @@ public class PlayerController : FSMBase {
 
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
 
-        max_distance = 300;
+        max_distance = 30;
         distance = max_distance;
         skillFlag = false;
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -109,10 +109,12 @@ public class PlayerController : FSMBase {
         //    obstacle.transform.Translate(movement);
         //}
 
-        if (distance <= 0)
+        if (distance <= 0 && distance != -1000)
         {
             //ourCanvas.GetComponent<UIInterface>();
             ourInterface.gameClear();
+            distance = -1000;
+            print("Clear");
         }
 
         distance -= bgm.moveSpeed * Time.deltaTime;

@@ -10,7 +10,7 @@ public class GameData : MonoBehaviour {
 
     public string playerName;
     public int[] stars;
-    public int[] times;
+    public int[] times;  
 
     void Awake()
     {

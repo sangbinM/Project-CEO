@@ -90,9 +90,10 @@ public class UIInterface : MonoBehaviour
             clearText = clearPanel.GetComponentInChildren<Text>();
             clearText.enabled = false;
         }
-        if (clearObject.GetComponentInChildren<Image>())
+        if (clearObject.GetComponentInChildren<Button>())
         {
-            nextStageBt = clearPanel.GetComponentInChildren<Image>();
+            print("clear button disappear");
+            nextStageBt = clearObject.GetComponentInChildren<Image>();
             nextStageBt.enabled = false;
             nextStageText = nextStageBt.GetComponentInChildren<Text>();
             nextStageText.enabled = false;
@@ -111,48 +112,38 @@ public class UIInterface : MonoBehaviour
 
     public void gameClear()
     {
-        if (clearTime > 0)
+        print("clear time : " + clearTime);
+        GameData.data.times[stageNum] = clearTime;
+        GameData.data.stars[stageNum] = 3;
+        GameData.data.Save();
+
+        print("clear panel open");    
+        clearPanel.enabled = true;
+        clearText.text = "스테이지 클리어 \n" + GameData.data.playerName;
+        switch (stageNum)
         {
-            GameData.data.times[stageNum] = clearTime;
-            GameData.data.stars[stageNum] = 3;
-            GameData.data.Save();
-            
-            clearPanel.enabled = true;
-            if (clearPanel.GetComponentInChildren<Text>())
-            {
-                clearText = clearPanel.GetComponentInChildren<Text>();
-                clearText.text = "스테이지 클리어 \n" + GameData.data.playerName;
-                switch (stageNum)
-                {
-                    case 1:
-                        clearText.text += " 사원님, 그럭저럭 쓸만한데?";
-                        break;
-                    case 2:
-                        clearText.text += " 대리님, 그럭저럭 쓸만한데?";
-                        break;
-                    case 3:
-                        clearText.text += " 과장님, 그럭저럭 쓸만한데?";
-                        break;
-                    case 4:
-                        clearText.text += " 부장님, 정말 대단하시지 말입니다.";
-                        break;
-                    case 5:
-                        clearText.text += " 이사님, 정말 대단하시지 말입니다.";
-                        break;
-                    default:
-                        clearText.text += " 직급 오류";
-                        break;
-                }
-                clearText.enabled = true;
-            }
-            if (clearPanel.GetComponentInChildren<Image>())
-            {
-                nextStageBt = clearPanel.GetComponentInChildren<Image>();
-                nextStageBt.enabled = false;
-                nextStageText = nextStageBt.GetComponentInChildren<Text>();
-                nextStageText.enabled = false;
-            }
+            case 1:
+                clearText.text += " 사원님, 그럭저럭 쓸만한데?";
+                break;
+            case 2:
+                clearText.text += " 대리님, 그럭저럭 쓸만한데?";
+                break;
+            case 3:
+                clearText.text += " 과장님, 그럭저럭 쓸만한데?";
+                break;
+            case 4:
+                clearText.text += " 부장님, 정말 대단하시지 말입니다.";
+                break;
+            case 5:
+                clearText.text += " 이사님, 정말 대단하시지 말입니다.";
+                break;
+            default:
+                clearText.text += " 직급 오류";
+                break;
         }
+        clearText.enabled = true;
+        nextStageBt.enabled = true;
+        nextStageText.enabled = true;
     }
 
     private void setTimeText() {
