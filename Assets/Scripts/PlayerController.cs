@@ -101,7 +101,7 @@ public class PlayerController : FSMBase {
         base.Update();
 
         // 스킬이면
-        print("state"+state);
+        //print("state"+state);
         //Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         //foreach (GameObject obstacle in Obstacles)  
         //{

@@ -106,8 +106,8 @@ public class UIInterface : MonoBehaviour
     public void gameClear()
     {
         print("clear time : " + clearTime);
-        GameData.data.times[stageNum] = clearTime;
-        GameData.data.stars[stageNum] = 3;
+        GameData.data.times[stageNum-1] = clearTime;
+        GameData.data.stars[stageNum-1] = 3;
         GameData.data.Save();
 
         print("clear panel open");
@@ -129,6 +129,8 @@ public class UIInterface : MonoBehaviour
                 break;
             case 5:
                 clearText.text += " 이사님, 정말 대단하시지 말입니다.";
+                sceneToLoad = "Ending";
+                nextStageText.text = "게임 끝내기";
                 break;
             default:
                 clearText.text += " 직급 오류";
