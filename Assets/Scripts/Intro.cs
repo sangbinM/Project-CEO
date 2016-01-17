@@ -36,7 +36,6 @@ public class Intro : MonoBehaviour {
         */
 
         // 로드할 데이터가 없을 때를 위한 디폴트 값
-        GameData.data.playerName = "오늘만";
         GameData.data.stars = new int[] { -1, -1, -1, -1, -1 };
         GameData.data.times = new int[] { -1, -1, -1, -1, -1 };
 
@@ -59,7 +58,8 @@ public class Intro : MonoBehaviour {
             }
             else
             {
-                panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 \"오늘만\"으로 정하시겠습니까?";
+                GameData.data.playerName = "오늘만";
+                panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 " + GameData.data.playerName + "으로 정하시겠습니까?";
             }
             
         }

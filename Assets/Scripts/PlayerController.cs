@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 
 // 한 스테이지 당 거리 600
@@ -26,7 +25,6 @@ public class PlayerController : FSMBase {
 
     public float distance;
     public float max_distance;
-    public string sceneToLoad;
 
     //private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
 
@@ -36,7 +34,9 @@ public class PlayerController : FSMBase {
 
     // 장애물
     private bool skillFlag;
-    
+
+    public Canvas ourCanvas;
+    public UIInterface ourInterface;
 
     protected override void Awake()
     {
@@ -52,6 +52,7 @@ public class PlayerController : FSMBase {
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
         characterAltitude = transform.position.y;
         SetName("Team9");
+        ourInterface = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().GetComponent<UIInterface>();
     }
     
     // 장애물 이랑 충돌하면 이벤트 함수 발생, other값은 player와 충돌한 객체(장애물)
@@ -95,14 +96,6 @@ public class PlayerController : FSMBase {
             return attackCheck / 5.0f;
     }
 
-    void gameClear() {
-
-
-       SceneManager.LoadScene(sceneToLoad);
-
-
-    }
-
     protected override void Update()
     {
         base.Update();
@@ -118,9 +111,8 @@ public class PlayerController : FSMBase {
 
         if (distance <= 0)
         {
-            gameClear();
-            //print("Game End");
-
+            //ourCanvas.GetComponent<UIInterface>();
+            ourInterface.gameClear();
         }
 
         distance -= bgm.moveSpeed * Time.deltaTime;
