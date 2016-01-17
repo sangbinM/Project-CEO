@@ -34,13 +34,14 @@ public class UIInterface : MonoBehaviour
 
     public Canvas ourCanvas;
 
-    private string sceneToLoad;
+    public string sceneToLoad;
 
     void Awake()
     {
         init_time = Time.time;
         clearTime = -1;
         flag = 0;
+        Time.timeScale = 1;
 
         stageNum = PlayerPrefs.GetInt("stageNum");
         TimeText.text = "00:00:00";
@@ -100,14 +101,18 @@ public class UIInterface : MonoBehaviour
 
     public void nextScene()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(sceneToLoad);
     }
 
     public void gameClear()
     {
+        Time.timeScale = 0.0f;
+
         print("clear time : " + clearTime);
-        GameData.data.times[stageNum] = clearTime;
-        GameData.data.stars[stageNum] = 3;
+        if (GameData.data.times[stageNum - 1] > clearTime)
+            GameData.data.times[stageNum - 1] = clearTime;
+        GameData.data.stars[stageNum-1] = 3;
         GameData.data.Save();
 
         print("clear panel open");
@@ -129,6 +134,8 @@ public class UIInterface : MonoBehaviour
                 break;
             case 5:
                 clearText.text += " 이사님, 정말 대단하시지 말입니다.";
+                sceneToLoad = "Ending";
+                nextStageText.text = "게임 끝내기";
                 break;
             default:
                 clearText.text += " 직급 오류";
@@ -195,10 +202,9 @@ public class UIInterface : MonoBehaviour
     }
 
 
-    public void exit() {
-
+    public void exit()
+    {
         Application.Quit();
-
     }
 
     // skill버튼 게이지 테스트 코드 -------------------삭제 예정 테스트 코드
@@ -210,7 +216,6 @@ public class UIInterface : MonoBehaviour
             print("SkillBt");
         }
     }
-
 
     //일시 정지 버튼
     public void pause() {
@@ -250,6 +255,10 @@ public class UIInterface : MonoBehaviour
         
     }
 
+    public void pauseNextScene()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
 
     private void ButtonCheck() {
 

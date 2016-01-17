@@ -180,7 +180,8 @@ public class MapInterface : MonoBehaviour {
                 else
                     secondS = second.ToString();
 
-                StageInfo[i] = StageInfo[i] + "\n 클리어 시간 " + minuteS + ":" + secondS;
+                StageInfo[i] = StageInfo[i] + "\n 최고 기록 " + minuteS + ":" + secondS + "\n 등급 ";
+                StageInfo[i] = StageInfo[i] + "★☆☆";
             }
         }
     }
