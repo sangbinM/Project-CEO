@@ -41,6 +41,7 @@ public class UIInterface : MonoBehaviour
         init_time = Time.time;
         clearTime = -1;
         flag = 0;
+        Time.timeScale = 1;
 
         stageNum = PlayerPrefs.GetInt("stageNum");
         TimeText.text = "00:00:00";
@@ -198,10 +199,9 @@ public class UIInterface : MonoBehaviour
     }
 
 
-    public void exit() {
-
+    public void exit()
+    {
         Application.Quit();
-
     }
 
     // skill버튼 게이지 테스트 코드 -------------------삭제 예정 테스트 코드
@@ -213,7 +213,6 @@ public class UIInterface : MonoBehaviour
             print("SkillBt");
         }
     }
-
 
     //일시 정지 버튼
     public void pause() {
@@ -252,8 +251,7 @@ public class UIInterface : MonoBehaviour
         }
         
     }
-
-
+    
     private void ButtonCheck() {
 
         // flag 는 공격 버튼 눌렀을 때 활성화
