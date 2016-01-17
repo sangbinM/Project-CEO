@@ -31,7 +31,7 @@ public class PlayerController : FSMBase {
     //private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
 
     private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
-    private ObstacleController _obstacle;
+    private PlayerController _player;
     public BackGroundMove bgm;
 
     // 장애물
@@ -47,7 +47,7 @@ public class PlayerController : FSMBase {
         max_distance = 60;
         distance = max_distance;
         skillFlag = false;
-        _obstacle = GameObject.FindGameObjectWithTag("obstacle").GetComponent<ObstacleController>();
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         bgm = GameObject.FindGameObjectWithTag("BackgroundRoot").GetComponent<BackGroundMove>();
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
         characterAltitude = transform.position.y;
@@ -74,17 +74,6 @@ public class PlayerController : FSMBase {
 
         if (state == State.Attack)
         {
-            attackCheck += 20;
-            /*
-            if ((attackCheck % 100) == 0)  //스킬 게이지 차서 쓸 수 있음
-            {
-
-            }
-            else  //스킬 못씀
-            {
-                
-            }*/
-
             other.gameObject.SetActive(false);
             print("Attack and damage");
 
@@ -93,13 +82,17 @@ public class PlayerController : FSMBase {
         //Destroy(other.gameObject);
     }
 
-    public int GetSkillGaugeValue()
+    public float GetSkillGaugeValue()
     {
-        if (attackCheck > 100)
+        if (attackCheck > 5)
         {
             attackCheck = 0;
         }
-        return attackCheck/5;
+
+        if (attackCheck == 0)
+            return 0.0f;
+        else
+            return attackCheck / 5.0f;
     }
 
     void gameClear() {
@@ -220,12 +213,27 @@ public class PlayerController : FSMBase {
     protected virtual void Attack()
     {
         /*
-        if (Vector3.Distance(transform.position, _obstacle.transform.position) <= 2f)
+        if (Vector3.Distance(transform.position.x, _obstacle.transform.position.x) <= 2f)
         {
             //_obstacle.Damage();
         }
         */
         //_obstacle.Damage();
+
+        foreach (GameObject obstacle in Obstacles)
+        {
+            if ((obstacle.transform.position.x - _player.transform.position.x) < 1.0f)
+            {
+                print("Attack and damage");
+                obstacle.gameObject.SetActive(false);
+                attackCheck += 1;
+                if (attackCheck > 5)
+                {
+                    attackCheck = 0;
+                }
+                print(attackCheck);
+            }
+        }
         SetState(State.Run);
     }
 
