@@ -79,6 +79,8 @@ public class MapInterface : MonoBehaviour {
     public void StageBt(int stageNum)
     {
         //sceneToLoad = "Stage" + stageNum;
+        PlayerPrefs.SetInt("stageNum", stageNum);
+        PlayerPrefs.Save();
         sceneToLoad = "First Scene";
         panelInfo.text = StageInfo[stageNum - 1];
         panelDetail.text = StageDetail[stageNum - 1];

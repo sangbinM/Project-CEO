@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIInterface : MonoBehaviour
 {
+    int stageNum;
 
     public Text TimeText;
     public Text PlayerLevel;
@@ -18,33 +20,61 @@ public class UIInterface : MonoBehaviour
     private int _layerMask;
 
     private int flag;
-    private float timer;
+    private int clearTime;
     private float init_time;
 
     public new Transform transform;
     public PlayerController playercontroller;
 
     private Image[] menuPanel;
+    private Image clearPanel;
+    private Text clearText;
+    private Image nextStageBt;
+    private Text nextStageText;
 
     public Canvas ourCanvas;
 
-    void Awake() {
+    public string sceneToLoad;
 
+    void Awake()
+    {
         init_time = Time.time;
-        timer = 0.0f;
+        clearTime = -1;
         flag = 0;
+
+        stageNum = PlayerPrefs.GetInt("stageNum");
         TimeText.text = "00:00:00";
-        PlayerLevel.text = "사원";
-        PlayerName.text = "오늘만";
+        switch (stageNum)
+        {
+            case 1:
+                PlayerLevel.text = "사원";
+                break;
+            case 2:
+                PlayerLevel.text = "대리";
+                break;
+            case 3:
+                PlayerLevel.text = "과장";
+                break;
+            case 4:
+                PlayerLevel.text = "부장";
+                break;
+            case 5:
+                PlayerLevel.text = "이사";
+                break;
+            default:
+                PlayerLevel.text = "스테이지 넘버 오류";
+                break;
+        }
+        PlayerName.text = GameData.data.playerName;
         DistanceBar.fillAmount = 0.0f;
         //setTimeText();
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
-        GameObject[] tempObject = GameObject.FindGameObjectsWithTag("MenuPanel");
-        menuPanel = new Image[tempObject.Length];
+        GameObject[] menuObject = GameObject.FindGameObjectsWithTag("MenuPanel");
+        menuPanel = new Image[menuObject.Length];
         int i = 0;
-        foreach (GameObject temp in tempObject) {
-
+        foreach (GameObject temp in menuObject)
+        {
             menuPanel[i] = temp.GetComponent<Image>();
             menuPanel[i].enabled = false;
             if (temp.GetComponentInChildren<Text>())
@@ -52,12 +82,77 @@ public class UIInterface : MonoBehaviour
             i++;
         }
 
-
+        GameObject clearObject = GameObject.FindGameObjectWithTag("ClearPanel");
+        clearPanel = clearObject.GetComponent<Image>();
+        clearPanel.enabled = false;
+        if (clearObject.GetComponentInChildren<Text>())
+        {
+            clearText = clearPanel.GetComponentInChildren<Text>();
+            clearText.enabled = false;
+        }
+        if (clearObject.GetComponentInChildren<Image>())
+        {
+            nextStageBt = clearPanel.GetComponentInChildren<Image>();
+            nextStageBt.enabled = false;
+            nextStageText = nextStageBt.GetComponentInChildren<Text>();
+            nextStageText.enabled = false;
+        }
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
 
         ourCanvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
+    }
+
+    public void nextScene()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
+
+    public void gameClear()
+    {
+        if (clearTime > 0)
+        {
+            GameData.data.times[stageNum] = clearTime;
+            GameData.data.stars[stageNum] = 3;
+            GameData.data.Save();
+            
+            clearPanel.enabled = true;
+            if (clearPanel.GetComponentInChildren<Text>())
+            {
+                clearText = clearPanel.GetComponentInChildren<Text>();
+                clearText.text = "스테이지 클리어 \n" + GameData.data.playerName;
+                switch (stageNum)
+                {
+                    case 1:
+                        clearText.text += " 사원님, 그럭저럭 쓸만한데?";
+                        break;
+                    case 2:
+                        clearText.text += " 대리님, 그럭저럭 쓸만한데?";
+                        break;
+                    case 3:
+                        clearText.text += " 과장님, 그럭저럭 쓸만한데?";
+                        break;
+                    case 4:
+                        clearText.text += " 부장님, 정말 대단하시지 말입니다.";
+                        break;
+                    case 5:
+                        clearText.text += " 이사님, 정말 대단하시지 말입니다.";
+                        break;
+                    default:
+                        clearText.text += " 직급 오류";
+                        break;
+                }
+                clearText.enabled = true;
+            }
+            if (clearPanel.GetComponentInChildren<Image>())
+            {
+                nextStageBt = clearPanel.GetComponentInChildren<Image>();
+                nextStageBt.enabled = false;
+                nextStageText = nextStageBt.GetComponentInChildren<Text>();
+                nextStageText.enabled = false;
+            }
+        }
     }
 
     private void setTimeText() {
@@ -68,6 +163,8 @@ public class UIInterface : MonoBehaviour
         string minuteS;
         string secondS;
         string millisecondS;
+
+        clearTime = second + minute * 60;
 
         if (millisecond / 10 == 0)
         {
@@ -99,28 +196,18 @@ public class UIInterface : MonoBehaviour
 
     }
 
-    private void setDistanceBar() {
-
+    private void setDistanceBar()
+    {
         DistanceBar.fillAmount = (playercontroller.max_distance - playercontroller.distance) / playercontroller.max_distance;
-
     }
 
-    void Update() {
-
-        //Time.timeScale;
+    void Update()
+    {
         setDistanceBar();
-        //timer += Time.deltaTime;
         //SkillGage.fillAmount += Time.deltaTime/5;
         setTimeText();
-        /*
-        if (timer >= 1) { 
-            timer = 0;
-            //setTimeText();
-        }*/
 
        ButtonCheck();
-            
-
     }
 
 
@@ -138,14 +225,13 @@ public class UIInterface : MonoBehaviour
             SkillGage.fillAmount = 0;
             print("SkillBt");
         }
-
     }
 
 
     //일시 정지 버튼
     public void pause() {
-        if (Time.timeScale == 0) {
-
+        if (Time.timeScale == 0)
+        {
             //일시 정지 버튼 끌 시 다른 UI버튼 클릭 활성화
             JumpButton.GetComponent<Button>().enabled = true;
             AttackButton.GetComponent<Button>().enabled = true;
@@ -155,33 +241,27 @@ public class UIInterface : MonoBehaviour
 
             foreach (Image temp in menuPanel)
             {
-
                 temp.enabled = false;
                 if (temp.GetComponentInChildren<Text>())
                     temp.GetComponentInChildren<Text>().enabled = false;
             }
             Time.timeScale = 1;
-
-        } else {
-
-
+        }
+        else {
             //일시 정지 버튼 클릭시 다른 UI버튼 클릭 비활성화
             JumpButton.GetComponent<Button>().enabled = false;
             AttackButton.GetComponent<Button>().enabled = false;
             SkillButton.GetComponent<Button>().enabled = false;
             SkillButton.GetComponent<Button>().enabled = false;
             SkillGage.GetComponent<Button>().enabled = false;
-
             
             foreach (Image temp in menuPanel)
             {
-
                 temp.enabled = true;
                 if (temp.GetComponentInChildren<Text>())
                     temp.GetComponentInChildren<Text>().enabled = true;
             }
             Time.timeScale = 0;
-
         }
         
     }
