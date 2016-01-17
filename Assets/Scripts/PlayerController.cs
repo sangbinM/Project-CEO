@@ -6,6 +6,10 @@ using System.Collections;
 // 1초 당 movespeed만큼 움직임
 public class PlayerController : FSMBase {
 
+   /*  공격을 체크하기 위하여  */
+    public GameObject attackedObstacle;
+
+
     private string playerName;
 
     private float characterAltitude;
@@ -38,13 +42,12 @@ public class PlayerController : FSMBase {
     public Canvas ourCanvas;
     public UIInterface ourInterface;
 
-    protected override void Awake()
-    {
+    protected override void Awake() {
         base.Awake();
 
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
 
-        max_distance = 30;
+        max_distance = 300;
         distance = max_distance;
         skillFlag = false;
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -53,38 +56,44 @@ public class PlayerController : FSMBase {
         characterAltitude = transform.position.y;
         SetName("Team9");
         ourInterface = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().GetComponent<UIInterface>();
+
     }
     
     // 장애물 이랑 충돌하면 이벤트 함수 발생, other값은 player와 충돌한 객체(장애물)
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        // 공격해서 장애물이 없어지는 것인지 아니면 장애물이랑 부딪힌 건지
-        // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
-        // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
-        //print("Collision");
+    void OnTriggerEnter2D(Collider2D other) {
         if (skillFlag)  // 스킬을 사용했을 때
         {
             other.gameObject.SetActive(false);
 
-        } /*  other.gameObject.SetActive(false);
-            //other.gameObject.transform.Translate(+10.0f, 0, 0);
-            print("Attack and damage");
+        } else {
 
-        } */else {
-
+            print("origin crush state : " + state);
             timer = 0;
             bgm.moveFlag = false;
             attackCheck = 0;
 
-        }
+        }/*  other.gameObject.SetActive(false);
+            //other.gameObject.transform.Translate(+10.0f, 0, 0);
+            print("Attack and damage");
 
-        
-        //print(other.gameObject.name);
-        //Destroy(other.gameObject);
+        } */
+
     }
 
-    public float GetSkillGaugeValue()
-    {
+
+    /*  공격   */
+    public void checkAttackOrCrush() {
+
+        if (state == State.Attack) {
+
+            attackedObstacle.SetActive(false);
+
+        }
+        
+    }
+    
+
+    public float GetSkillGaugeValue() {
         if (attackCheck > 5)
         {
             attackCheck = 0;
@@ -99,15 +108,7 @@ public class PlayerController : FSMBase {
     protected override void Update()
     {
         base.Update();
-
-        // 스킬이면
-        print("state"+state);
-        //Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
-        //foreach (GameObject obstacle in Obstacles)  
-        //{
-
-        //    obstacle.transform.Translate(movement);
-        //}
+        
 
         if (distance <= 0 && distance != -1000)
         {
@@ -123,40 +124,16 @@ public class PlayerController : FSMBase {
         if (!skillFlag && timer >= 1 && !bgm.moveFlag)    // 배경 정지 1초만 하고 움직이기
         {
             bgm.moveFlag = true;
-        } else if (skillFlag && timer >= skillTime) {
+        } else if (skillFlag && timer >= skillTime) {   // 스킬 끝
 
             bgm.moveSpeed = bgm.fixedMoveSpeed;
             skillFlag = false;
             SetState(State.Run);
         }
-
-        if (state == State.Dead)
-            return;
+        
 
         //ProcessInput();
     }
-
-    /*
-    void ProcessInput()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (state == State.Run)
-            {
-                jumpSpeed = maxSpeed;
-                SetState(State.Jump);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            SetState(State.Attack);
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            SetState(State.Skill);
-        }
-    }
-    */
 
     public void DoSkill()
     {
@@ -165,13 +142,13 @@ public class PlayerController : FSMBase {
         timer = 0;
         bgm.moveFlag = true;
         bgm.moveSpeed = bgm.fixedMoveSpeed * 2;
-        /*
+        
         if (state == State.Run)
         {
             _elapsedTime = 0.0f;
             SetState(State.Skill);
         }
-        */
+        
     }
 
     public void DoAttack()
@@ -179,7 +156,9 @@ public class PlayerController : FSMBase {
         print("Do attack");
         if (state == State.Run)
         {
+            print("state (Run) is : "+ state);
             SetState(State.Attack);
+            print("state (Attack) is : " + state);
         }
     }
 
@@ -203,20 +182,16 @@ public class PlayerController : FSMBase {
 
     protected virtual void Run()
     {
-
     }
 
     protected virtual void Attack()
     {
-        /*
-        if (Vector3.Distance(transform.position.x, _obstacle.transform.position.x) <= 2f)
-        {
-            //_obstacle.Damage();
-        }
-        */
-        print("Attack function work");
-        //_obstacle.Damage();
         
+        print("Attack function work");
+        
+
+        //_obstacle.Damage();
+        /*
         foreach (GameObject obstacle in Obstacles)
         {
             if ((obstacle.transform.position.x - _player.transform.position.x) < 3.0f)
@@ -231,7 +206,8 @@ public class PlayerController : FSMBase {
                 }
                 print(attackCheck);
             }
-        }
+        }*/
+        
         SetState(State.Run);
     }
 

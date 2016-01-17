@@ -55,17 +55,7 @@ public class ObstacleController : FSMBase
             }
         }
     }
-
-    void OnTriggerEnter2D(Collider2D coll)
-    {
-        //충돌한 오브젝트의 이름이 Player일 경우
-        if (coll.transform.name == "Player")
-        {
-            //coll.gameObject.SetActive(false);
-            //SetState(State.Dead);
-        }
-
-    }
+    
 
     /*
     public void Damage()  //Player와 일정 range 안에 들어오면 없어지게
