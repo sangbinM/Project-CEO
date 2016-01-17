@@ -34,7 +34,7 @@ public class UIInterface : MonoBehaviour
 
     public Canvas ourCanvas;
 
-    private string sceneToLoad;
+    public string sceneToLoad;
 
     void Awake()
     {
@@ -101,11 +101,14 @@ public class UIInterface : MonoBehaviour
 
     public void nextScene()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(sceneToLoad);
     }
 
     public void gameClear()
     {
+        Time.timeScale = 0.0f;
+
         print("clear time : " + clearTime);
         if (GameData.data.times[stageNum - 1] > clearTime)
             GameData.data.times[stageNum - 1] = clearTime;
@@ -251,7 +254,12 @@ public class UIInterface : MonoBehaviour
         }
         
     }
-    
+
+    public void pauseNextScene()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
+
     private void ButtonCheck() {
 
         // flag 는 공격 버튼 눌렀을 때 활성화
