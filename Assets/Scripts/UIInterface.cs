@@ -254,16 +254,12 @@ public class UIInterface : MonoBehaviour
         }
         
     }
-<<<<<<< HEAD
 
     public void pauseNextScene()
     {
         SceneManager.LoadScene(sceneToLoad);
     }
 
-=======
-    
->>>>>>> origin/master
     private void ButtonCheck() {
 
         // flag 는 공격 버튼 눌렀을 때 활성화
