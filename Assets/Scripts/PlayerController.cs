@@ -44,7 +44,7 @@ public class PlayerController : FSMBase {
 
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
 
-        max_distance = 60;
+        max_distance = 300;
         distance = max_distance;
         skillFlag = false;
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -132,7 +132,8 @@ public class PlayerController : FSMBase {
         } else if (skillFlag && timer >= skillTime) {
 
             bgm.moveSpeed = bgm.fixedMoveSpeed;
-
+            skillFlag = false;
+            SetState(State.Run);
         }
 
         if (state == State.Dead)
@@ -218,6 +219,7 @@ public class PlayerController : FSMBase {
             //_obstacle.Damage();
         }
         */
+        print("Attack function work");
         //_obstacle.Damage();
 
         foreach (GameObject obstacle in Obstacles)
