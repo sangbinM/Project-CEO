@@ -26,9 +26,8 @@ public class PlayerController : FSMBase {
     public float distance;
     public float max_distance;
 
-    //private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
-
     private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
+    private GameObject obsPoint_mid;
     private PlayerController _player;
     public BackGroundMove bgm;
 
@@ -42,8 +41,6 @@ public class PlayerController : FSMBase {
     {
         base.Awake();
 
-        //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");  // 장애물 모두 받아오기
-
         max_distance = 30;
         distance = max_distance;
         skillFlag = false;
@@ -53,6 +50,7 @@ public class PlayerController : FSMBase {
         characterAltitude = transform.position.y;
         SetName("Team9");
         ourInterface = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().GetComponent<UIInterface>();
+        obsPoint_mid = GameObject.FindGameObjectWithTag("obstaclePos3");
     }
     
     // 장애물 이랑 충돌하면 이벤트 함수 발생, other값은 player와 충돌한 객체(장애물)
@@ -70,7 +68,7 @@ public class PlayerController : FSMBase {
             //other.gameObject.transform.Translate(+10.0f, 0, 0);
             print("Attack and damage");
 
-        } */else {
+        }*/ else {
 
             timer = 0;
             bgm.moveFlag = false;
@@ -102,12 +100,6 @@ public class PlayerController : FSMBase {
 
         // 스킬이면
         print("state"+state);
-        //Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
-        //foreach (GameObject obstacle in Obstacles)  
-        //{
-
-        //    obstacle.transform.Translate(movement);
-        //}
 
         if (distance <= 0 && distance > -1000)
         {
@@ -219,7 +211,7 @@ public class PlayerController : FSMBase {
         
         foreach (GameObject obstacle in Obstacles)
         {
-            if ((obstacle.transform.position.x - _player.transform.position.x) < 3.0f)
+            if (((obstacle.transform.position.x - _player.transform.position.x) < 3.0f) && (obstacle.transform.position.y == obsPoint_mid.transform.position.y))
             {
                 print("Attack and damage");
                 obstacle.gameObject.SetActive(false);

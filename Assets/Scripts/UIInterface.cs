@@ -34,7 +34,7 @@ public class UIInterface : MonoBehaviour
 
     public Canvas ourCanvas;
 
-    private string sceneToLoad;
+    public string sceneToLoad;
 
     void Awake()
     {
@@ -100,11 +100,14 @@ public class UIInterface : MonoBehaviour
 
     public void nextScene()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(sceneToLoad);
     }
 
     public void gameClear()
     {
+        Time.timeScale = 0.0f;
+
         print("clear time : " + clearTime);
         GameData.data.times[stageNum] = clearTime;
         GameData.data.stars[stageNum] = 3;
@@ -250,6 +253,10 @@ public class UIInterface : MonoBehaviour
         
     }
 
+    public void pauseNextScene()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
 
     private void ButtonCheck() {
 
