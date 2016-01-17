@@ -74,12 +74,12 @@ public class Intro : MonoBehaviour {
 
         if (InputField.textComponent.text != "")
         {
-            panelText.text = "캐릭터명을 " + InputField.textComponent.text + "으로 정하시겠습니까?";
+            panelText.text = "캐릭터명을 " + InputField.textComponent.text + "(으)로 정하시겠습니까?";
         }
         else
         {
             GameData.data.playerName = "오늘만";
-            panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 " + GameData.data.playerName + "으로 정하시겠습니까?";
+            panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 [" + GameData.data.playerName + "]으로 정하시겠습니까?";
         }
     }
 

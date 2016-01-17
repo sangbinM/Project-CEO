@@ -109,7 +109,7 @@ public class PlayerController : FSMBase {
         //    obstacle.transform.Translate(movement);
         //}
 
-        if (distance <= 0 && distance != -1000)
+        if (distance <= 0 && distance > -1000)
         {
             //ourCanvas.GetComponent<UIInterface>();
             ourInterface.gameClear();
