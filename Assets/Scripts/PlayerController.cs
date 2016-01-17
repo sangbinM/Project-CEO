@@ -22,11 +22,7 @@ public class PlayerController : FSMBase
     //private int _layermask;
 
     public float distance;
-<<<<<<< HEAD
-    public float max_distance;
-=======
     public float max_distance = 30;
->>>>>>> origin/master
 
     private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
     private GameObject obsPoint_mid;
@@ -40,12 +36,9 @@ public class PlayerController : FSMBase
     protected override void Awake()
     {
         base.Awake();
-<<<<<<< HEAD
 
         max_distance = 30;
-=======
-        
->>>>>>> origin/master
+
         distance = max_distance;
         skillFlag = false;
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -97,17 +90,7 @@ public class PlayerController : FSMBase
         base.Update();
 
         // 스킬이면
-<<<<<<< HEAD
         print("state"+state);
-=======
-        //print("state"+state);
-        //Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
-        //foreach (GameObject obstacle in Obstacles)  
-        //{
-
-        //    obstacle.transform.Translate(movement);
-        //}
->>>>>>> origin/master
 
         if (distance <= 0 && distance > -1000)
         {
@@ -191,7 +174,7 @@ public class PlayerController : FSMBase
             {
                 print("Attack and damage");
                 obstacle.gameObject.SetActive(false);
-                //obstacle.transform.position = new Vector3 ()
+
                 numAttack += 1;
                 if (numAttack > 5)
                 {
