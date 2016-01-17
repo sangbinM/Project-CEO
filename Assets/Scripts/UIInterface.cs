@@ -34,7 +34,7 @@ public class UIInterface : MonoBehaviour
 
     public Canvas ourCanvas;
 
-    public string sceneToLoad;
+    private string sceneToLoad;
 
     void Awake()
     {
@@ -82,27 +82,20 @@ public class UIInterface : MonoBehaviour
             i++;
         }
 
-        GameObject clearObject = GameObject.FindGameObjectWithTag("ClearPanel");
-        clearPanel = clearObject.GetComponent<Image>();
+        clearPanel = GameObject.FindGameObjectWithTag("ClearPanel").GetComponent<Image>();
+        clearText = clearPanel.GetComponentInChildren<Text>();
+        nextStageBt = GameObject.FindGameObjectWithTag("NextButton").GetComponent<Image>();
+        nextStageText = nextStageBt.GetComponentInChildren<Text>();
         clearPanel.enabled = false;
-        if (clearObject.GetComponentInChildren<Text>())
-        {
-            clearText = clearPanel.GetComponentInChildren<Text>();
-            clearText.enabled = false;
-        }
-        if (clearObject.GetComponentInChildren<Button>())
-        {
-            print("clear button disappear");
-            nextStageBt = clearObject.GetComponentInChildren<Image>();
-            nextStageBt.enabled = false;
-            nextStageText = nextStageBt.GetComponentInChildren<Text>();
-            nextStageText.enabled = false;
-        }
+        clearText.enabled = false;
+        nextStageBt.enabled = false;
+        nextStageText.enabled = false;
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
 
         ourCanvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
+        sceneToLoad = "Map";
     }
 
     public void nextScene()
@@ -117,7 +110,7 @@ public class UIInterface : MonoBehaviour
         GameData.data.stars[stageNum] = 3;
         GameData.data.Save();
 
-        print("clear panel open");    
+        print("clear panel open");
         clearPanel.enabled = true;
         clearText.text = "스테이지 클리어 \n" + GameData.data.playerName;
         switch (stageNum)
