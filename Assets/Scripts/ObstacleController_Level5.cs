@@ -30,7 +30,7 @@ public class ObstacleController_Level5 : MonoBehaviour
     }
 
 
-    void Start()
+    void Update()
     {
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         Vector3 movement2 = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime / 2;
