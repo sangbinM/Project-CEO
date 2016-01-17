@@ -65,19 +65,19 @@ public class PlayerController : FSMBase {
         {
             other.gameObject.SetActive(false);
 
-        } else {
+        } /*  other.gameObject.SetActive(false);
+            //other.gameObject.transform.Translate(+10.0f, 0, 0);
+            print("Attack and damage");
+
+        } */else {
 
             timer = 0;
             bgm.moveFlag = false;
+            attackCheck = 0;
 
         }
 
-        if (state == State.Attack)
-        {
-            other.gameObject.SetActive(false);
-            print("Attack and damage");
-
-        }
+        
         //print(other.gameObject.name);
         //Destroy(other.gameObject);
     }
@@ -167,6 +167,7 @@ public class PlayerController : FSMBase {
     public void DoSkill()
     {
         skillFlag = true;
+        attackCheck = 0;
         timer = 0;
         bgm.moveFlag = true;
         bgm.moveSpeed = bgm.fixedMoveSpeed * 2;
@@ -221,17 +222,18 @@ public class PlayerController : FSMBase {
         */
         print("Attack function work");
         //_obstacle.Damage();
-
+        
         foreach (GameObject obstacle in Obstacles)
         {
-            if ((obstacle.transform.position.x - _player.transform.position.x) < 1.0f)
+            if ((obstacle.transform.position.x - _player.transform.position.x) < 3.0f)
             {
                 print("Attack and damage");
                 obstacle.gameObject.SetActive(false);
+                //obstacle.transform.position = new Vector3 ()
                 attackCheck += 1;
                 if (attackCheck > 5)
                 {
-                    attackCheck = 0;
+                    attackCheck = 5;
                 }
                 print(attackCheck);
             }
