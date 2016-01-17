@@ -169,21 +169,31 @@ public class PlayerController : FSMBase
     protected virtual void Attack()
     {
         print("Attack function work");
+        GameObject target = null;
+        float minDist = 1000.0f;
+        float dist;
         
         foreach (GameObject obstacle in Obstacles)
         {
-            if ((obstacle.transform.position.x - _player.transform.position.x) < 3.0f)
+            dist = obstacle.transform.position.x - _player.transform.position.x;
+            if (dist > 0 && dist < minDist)
             {
-                print("Attack and damage");
-                obstacle.gameObject.SetActive(false);
-                //obstacle.transform.position = new Vector3 ()
-                numAttack += 1;
-                if (numAttack > 5)
-                {
-                    numAttack = 5;
-                }
-                print(numAttack);
+                minDist = dist;
+                target = obstacle;
             }
+        }
+
+        if (minDist < 3.0f && target != null)
+        {
+            print("Attack and damage");
+            target.gameObject.SetActive(false);
+            //obstacle.transform.position = new Vector3 ()
+            numAttack += 1;
+            if (numAttack > 5)
+            {
+                numAttack = 5;
+            }
+            print(numAttack);
         }
         SetState(State.Run);
     }
