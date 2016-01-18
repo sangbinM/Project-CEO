@@ -22,7 +22,7 @@ public class PlayerController : FSMBase
     //private int _layermask;
 
     public float distance;
-    public float max_distance = 300;
+    public float max_distance;
 
     private GameObject[] Obstacles; // Obstacle 받아오기 위한 변수 배열
     private GameObject collidedObstacle;
@@ -37,7 +37,7 @@ public class PlayerController : FSMBase
     protected override void Awake()
     {
         base.Awake();
-
+        max_distance = 300;
         distance = max_distance;
         skillFlag = false;
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
