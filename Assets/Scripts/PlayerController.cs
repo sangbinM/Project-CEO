@@ -66,7 +66,8 @@ public class PlayerController : FSMBase
         else
         {
             if (other.tag == "npc") {
-                ourInterface.gameClear();
+                Time.timeScale = 0f;
+                //ourInterface.gameClear();
             }
             timer = 0;
             bgm.moveFlag = false;
