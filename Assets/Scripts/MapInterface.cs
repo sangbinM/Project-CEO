@@ -181,7 +181,21 @@ public class MapInterface : MonoBehaviour {
                     secondS = second.ToString();
 
                 StageInfo[i] = StageInfo[i] + "\n 최고 기록 " + minuteS + ":" + secondS + "\n 등급 ";
-                StageInfo[i] = StageInfo[i] + "★☆☆";
+                switch (GameData.data.stars[i])
+                {
+                    case 1:
+                        StageInfo[i] = StageInfo[i] + "★☆☆";
+                        break;
+                    case 2:
+                        StageInfo[i] = StageInfo[i] + "★★☆";
+                        break;
+                    case 3:
+                        StageInfo[i] = StageInfo[i] + "★★★";
+                        break;
+                    default:
+                        StageInfo[i] = StageInfo[i] + "☆☆☆";
+                        break;
+                }
             }
         }
     }

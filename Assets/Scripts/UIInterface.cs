@@ -133,12 +133,23 @@ public class UIInterface : MonoBehaviour
         print("clear time : " + clearTime);
         if (GameData.data.times[stageNum - 1] > clearTime || GameData.data.times[stageNum-1] < 0)
             GameData.data.times[stageNum - 1] = clearTime;
-        GameData.data.stars[stageNum-1] = 3;
+        if (clearTime <= 80)
+            GameData.data.stars[stageNum - 1] = 3;
+        else if (GameData.data.times[stageNum - 1] <= 120)
+        {
+            if (GameData.data.stars[stageNum - 1] < 2)
+                GameData.data.stars[stageNum - 1] = 2;
+        }
+        else
+        {
+            if (GameData.data.stars[stageNum - 1] < 1)
+                GameData.data.stars[stageNum - 1] = 1;
+        }
         GameData.data.Save();
 
         print("clear panel open");
         clearPanel.enabled = true;
-        clearText.text = "스테이지 클리어 \n" + GameData.data.playerName;
+        clearText.text = "스테이지 클리어! \n 클리어 타임 : " + TimeText.text + "\n\n" + GameData.data.playerName;
 
         switch (stageNum)
         {
@@ -156,7 +167,8 @@ public class UIInterface : MonoBehaviour
                 break;
             case 5:
                 clearText.text += " 이사님, 정말 대단하시지 말입니다.";
-                sceneToLoad = "Ending";
+                if (clearTime < 80)
+                    sceneToLoad = "Ending";
                 nextStageText.text = "게임 끝내기";
                 break;
             default:
