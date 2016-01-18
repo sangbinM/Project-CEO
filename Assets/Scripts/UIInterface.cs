@@ -168,7 +168,7 @@ public class UIInterface : MonoBehaviour
             case 5:
                 clearText.text += " 이사님, 정말 대단하시지 말입니다.";
                 if (clearTime < 80)
-                    sceneToLoad = "Ending";
+                    sceneToLoad = "Final Scene";
                 nextStageText.text = "게임 끝내기";
                 break;
             default:
