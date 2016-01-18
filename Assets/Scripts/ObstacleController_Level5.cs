@@ -27,6 +27,7 @@ public class ObstacleController_Level5 : MonoBehaviour
         npc = GameObject.FindGameObjectWithTag("npc");
 
         npc.SetActive(false);
+        setNPCSpeech();
     }
 
 
@@ -88,6 +89,19 @@ public class ObstacleController_Level5 : MonoBehaviour
                 }
             }
         }
+    }
+
+    void setNPCSpeech()
+    {
+        System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+        int num = rand.Next(21);
+        SpriteRenderer sr = npc.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        string path = "file://" + Application.dataPath + "/Images/npc" + num.ToString() + ".png";
+        //print(path);
+        WWW www = new WWW(path);
+        Sprite sprite = new Sprite();
+        sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
+        sr.sprite = sprite;
     }
 
     void OnTriggerEnter2D(Collider2D coll)

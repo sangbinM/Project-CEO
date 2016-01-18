@@ -131,7 +131,7 @@ public class UIInterface : MonoBehaviour
         Time.timeScale = 0.0f;
 
         print("clear time : " + clearTime);
-        if (GameData.data.times[stageNum - 1] > clearTime)
+        if (GameData.data.times[stageNum - 1] > clearTime || GameData.data.times[stageNum-1] < 0)
             GameData.data.times[stageNum - 1] = clearTime;
         GameData.data.stars[stageNum-1] = 3;
         GameData.data.Save();
