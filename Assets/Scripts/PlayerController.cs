@@ -55,6 +55,9 @@ public class PlayerController : FSMBase
         // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
         collidedObstacle = other.gameObject;
 
+
+        //ourInterface.gameClear();
+
         if (skillFlag)  // 스킬을 사용했을 때
         {
             collidedObstacle.SetActive(false);
@@ -62,6 +65,9 @@ public class PlayerController : FSMBase
         }
         else
         {
+            if (other.tag == "npc") {
+                ourInterface.gameClear();
+            }
             timer = 0;
             bgm.moveFlag = false;
 

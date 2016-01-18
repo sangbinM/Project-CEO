@@ -65,7 +65,7 @@ public class ObstacleController_Level3 : MonoBehaviour
 
             foreach (GameObject obstacle in Obstacles)
             {
-                obstacle.SetActive(true);
+                //obstacle.SetActive(true);
                 obstacle.transform.Translate(movement);
 
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
