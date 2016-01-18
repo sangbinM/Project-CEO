@@ -11,11 +11,9 @@ public class PlayerController : FSMBase
     private float maxSpeed = 19f;
     private float characterMass = 14f;
     private int numAttack = 0;
-
-    //public string str;
+    
     private float _elapsedTime;
     private float skillTime = 4.0f;
-    //private float stopWaitTime = 1.0f;
 
     private float timer;
 
@@ -54,17 +52,11 @@ public class PlayerController : FSMBase
         // 공격해서 장애물이 없어지는 것인지 아니면 장애물이랑 부딪힌 건지
         // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
         // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
-        //print("Collision");
         collidedObstacle = other.gameObject;
         if (skillFlag)  // 스킬을 사용했을 때
         {
             collidedObstacle.SetActive(false);
         }
-        /*  other.gameObject.SetActive(false);
-            //other.gameObject.transform.Translate(+10.0f, 0, 0);
-            print("Attack and damage");
-
-        }*/
         else
         {
             timer = 0;
@@ -72,8 +64,6 @@ public class PlayerController : FSMBase
 
             numAttack = 0;
         }
-        //print(other.gameObject.name);
-        //Destroy(other.gameObject);
     }
 
     public float GetSkillGaugeValue()
@@ -92,7 +82,6 @@ public class PlayerController : FSMBase
         base.Update();
 
         // 스킬이면
-        //print("state" + state);
 
         if (distance <= 0 && distance > -1000)
         {
@@ -139,7 +128,6 @@ public class PlayerController : FSMBase
 
     public void DoAttack()
     {
-        //print("Do attack");
         if (state == State.Run)
         {
             SetState(State.Attack);
@@ -171,7 +159,6 @@ public class PlayerController : FSMBase
 
     protected virtual void Attack()
     {
-        //print("Attack function work");
         GameObject target = null;
         float minDist = 1000.0f;
         float dist;
@@ -183,42 +170,32 @@ public class PlayerController : FSMBase
             {
                 minDist = dist;
                 target = obstacle;
-                //print("target name is " + target.gameObject.name);
             }
         }
-        if (collidedObstacle == target)
-        {
-            //print("target has collided!");
-        }
-        else if (minDist < 3.0f && target != null)
-        {
-            //print("okoko");
-            //print("y position : " + target.gameObject.transform.position.y);
-            if (target.transform.position.y == obsPos_mid.transform.position.y)
-            {
-                //print("Attack and damage");
-                if (target.gameObject.name == "obstacle_down")
-                {
 
+        if (collidedObstacle == target) {
 
+        } else if (minDist < 2.5f && target != null) {
+            if (target.transform.position.y == obsPos_mid.transform.position.y && target.activeSelf == true) {
+
+                /*
+                if (target.gameObject.name == "obstacle_down" && attack_num == 0) {
+
+                    attack_num++;
                     print("Down!!");
                     target.gameObject.SetActive(false);
-                    //target.SetActive(false);
 
-                }
+                }*/
+                
                 target.gameObject.SetActive(false);
-                //obstacle.transform.position = new Vector3 ()
                 numAttack += 1;
-                if (numAttack > 5)
-                {
+                if (numAttack > 5) {
                     numAttack = 5;
                 }
-                //print(numAttack);
             }
         }
         else
         {
-            //print("333");
         }
         SetState(State.Run);
     }
