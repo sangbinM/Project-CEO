@@ -54,11 +54,11 @@ public class PlayerController : FSMBase
         // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
         // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
         collidedObstacle = other.gameObject;
-        numAttack_flag = 1;
 
         if (skillFlag)  // 스킬을 사용했을 때
         {
             collidedObstacle.SetActive(false);
+            //numAttack_flag = 1; // obstacle active false되면 더이상 numAttack 안올라 가게 체크 
         }
         else
         {
@@ -191,12 +191,11 @@ public class PlayerController : FSMBase
                 }*/
                 
                 target.gameObject.SetActive(false);
-
-                if (numAttack_flag == 1)
+                if( target.transform.position != null )
                 {
                     numAttack += 1;
-                    numAttack_flag = 0;
                 }
+
                 if (numAttack > 5) {
                     numAttack = 5;
                 }
