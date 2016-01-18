@@ -37,6 +37,10 @@ public class ObstacleController_Level3 : MonoBehaviour
 
     void Update()
     {
+        System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+        int num = rand.Next(2);
+        int num2 = rand.Next(3);
+
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
         Vector3 movement2 = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime / 2;
 
@@ -48,9 +52,6 @@ public class ObstacleController_Level3 : MonoBehaviour
 
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
-                    System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                    int num = rand.Next(2);
-
                     obstacle.transform.position = obsPoints[num].transform.position;
                     obstacle.SetActive(true);
                 }
@@ -64,13 +65,11 @@ public class ObstacleController_Level3 : MonoBehaviour
 
             foreach (GameObject obstacle in Obstacles)
             {
+                obstacle.SetActive(true);
                 obstacle.transform.Translate(movement);
 
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
-                    System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                    int num = rand.Next(2);
-
                     obstacle.transform.position = obsPoints[num].transform.position;
                     obstacle.SetActive(true);
                 }
@@ -83,13 +82,9 @@ public class ObstacleController_Level3 : MonoBehaviour
 
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
-                    System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                    int num = rand.Next(3);
-
-                    obstacle.transform.position = obsPoints[num].transform.position;
+                    obstacle.transform.position = obsPoints[num2].transform.position;
                     obstacle.SetActive(true);
                 }
-
             }
 
 
