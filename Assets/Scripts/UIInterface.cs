@@ -282,7 +282,6 @@ public class UIInterface : MonoBehaviour
         if (SkillGage.fillAmount == 1) {
 
             SkillGage.fillAmount = 0;
-            print("SkillBt");
         }
     }
 
