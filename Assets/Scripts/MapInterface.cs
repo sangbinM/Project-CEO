@@ -21,10 +21,13 @@ public class MapInterface : MonoBehaviour {
     public Image endButton;
     public Text endText;
 
+    public Image exit;
+
     //public new Transform transform;
 
     void Awake()
     {
+        exit.enabled = false;
         panel.enabled = false;
         startButton.enabled = false;
         endButton.enabled = false;
@@ -75,6 +78,47 @@ public class MapInterface : MonoBehaviour {
         }
     }
     */
+
+    public void pause()
+    {
+        
+        if (Time.timeScale == 0) {
+
+            exit.enabled = false;
+            //일시 정지 버튼 끌 시 다른 UI버튼 클릭 활성화
+            startButton.GetComponent<Button>().enabled = true;
+            endButton.GetComponent<Button>().enabled = true;
+
+
+            StageButton[0].enabled = true;
+            for (int i = 1; i < 5; i++) { 
+                if (playTime[i-1] > -1) {
+                    StageButton[i].enabled = true;
+                }
+            }
+
+            Time.timeScale = 1;
+
+        } else {
+
+            exit.enabled = true;
+            //일시 정지 버튼 끌 시 다른 UI버튼 클릭 활성화
+            startButton.GetComponent<Button>().enabled = false;
+            endButton.GetComponent<Button>().enabled = false;
+
+            foreach (Button temp in StageButton)
+            {
+                temp.GetComponent<Button>().enabled = false;
+                /*
+                if (temp.GetComponentInChildren<Text>())
+                    temp.GetComponentInChildren<Text>().enabled = false;
+                */
+            }
+            Time.timeScale = 0;
+
+        }
+
+    }
 
     public void StageBt(int stageNum)
     {
