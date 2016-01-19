@@ -11,6 +11,7 @@ public class ObstacleController_Level3 : MonoBehaviour
     private GameObject[] obsPoints;
     private float init_time;
     private GameObject npc;
+    public Sprite[] npcSpeech;
 
     void Start()
     {
@@ -96,12 +97,13 @@ public class ObstacleController_Level3 : MonoBehaviour
         System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
         int num = rand.Next(21);
         SpriteRenderer sr = npc.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        string path = "file://" + Application.dataPath + "/Images/npc"+num.ToString()+".png";
+        //string path = "file://" + Application.dataPath + "/Images/npc"+num.ToString()+".png";
         //print(path);
-        WWW www = new WWW(path);
-        Sprite sprite = new Sprite();
-        sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
-        sr.sprite = sprite;
+        //WWW www = new WWW(path);
+        //Sprite sprite = new Sprite();
+        //sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
+        //sr.sprite = sprite;
+        sr.sprite = npcSpeech[num];
     }
 
     void OnTriggerEnter2D(Collider2D coll)
