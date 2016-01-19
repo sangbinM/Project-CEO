@@ -42,7 +42,6 @@ public class ObstacleController_Level1 : MonoBehaviour
 
                 //Invoke 역할 random 시간 지연주기
                 obstacle.transform.position = obsPoints[num].transform.position;
-                print("obstacle name is " + obstacle.gameObject.name);
                 obstacle.SetActive(true);
             }
         }
