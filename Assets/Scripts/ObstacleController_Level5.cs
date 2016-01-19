@@ -44,6 +44,20 @@ public class ObstacleController_Level5 : MonoBehaviour
 
         if (isTiming(Time.time, 40.0f))
         {
+            if (setActiveUpObject_flag == 0)
+            {
+                npc.SetActive(true);
+
+                obsUpSetActive();
+                setActiveUpObject_flag = 1;
+            }
+
+            if (npc.transform.position.x < obsPoints[3].transform.position.x)
+            {
+                npc.transform.Translate(movement / 2);
+                npc.SetActive(true);
+            }
+
             foreach (GameObject obstacle in Obstacles)
             {
                 obstacle.transform.Translate(movement);
@@ -57,15 +71,6 @@ public class ObstacleController_Level5 : MonoBehaviour
         }
         else if (isTiming(Time.time, 100.0f))
         {
-            if (setActiveUpObject_flag == 0)
-            {
-                npc.SetActive(true);
-                npc.transform.Translate(movement / 2);
-
-                obsUpSetActive();
-                setActiveUpObject_flag = 1;
-            }
-
             foreach (GameObject obstacle in Obstacles)
             {
                 obstacle.transform.Translate(movement);

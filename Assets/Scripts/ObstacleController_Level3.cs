@@ -49,7 +49,7 @@ public class ObstacleController_Level3 : MonoBehaviour
 
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
 
-        if (isTiming(Time.time, 10.0f)) //40
+        if (isTiming(Time.time, 15.0f)) //40
         {
             foreach (GameObject obstacle in Obstacles)
             {
@@ -62,16 +62,17 @@ public class ObstacleController_Level3 : MonoBehaviour
                 }
             }
         }
-        else if (isTiming(Time.time, 120.0f)) //80
+        else if (isTiming(Time.time, 30.0f)) //80
         {
             if (setActiveUpObject_flag == 0)
             {
                 npc.SetActive(true);
-                npc.transform.Translate(movement / 2);
 
                 obsUpSetActive();
                 setActiveUpObject_flag = 1;
             }
+            
+            npc.transform.Translate(movement/2);
 
             foreach (GameObject obstacle in Obstacles)
             {

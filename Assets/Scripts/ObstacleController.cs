@@ -70,24 +70,24 @@ public class ObstacleController : FSMBase
     }
     */
 
-    void DoSkill(float skillTime)  // 스킬 발동 되면 화면 내 obstacle 다 없어짐
-    {
-        var watch = Stopwatch.StartNew();
+    //void DoSkill(float skillTime)  // 스킬 발동 되면 화면 내 obstacle 다 없어짐
+    //{
+    //    var watch = Stopwatch.StartNew();
 
-        watch.Stop();
+    //    watch.Stop();
 
-        if(watch.ElapsedMilliseconds < 3000)
-        {
-            foreach(GameObject obstacle in Obstacles)
-            {
-                gameObject.SetActive(false);
-            }
+    //    if(watch.ElapsedMilliseconds < 3000)
+    //    {
+    //        foreach(GameObject obstacle in Obstacles)
+    //        {
+    //            gameObject.SetActive(false);
+    //        }
 
-            watch.Start();
-        }
-        else
-        {
-            return;
-        }
-    }
+    //        watch.Start();
+    //    }
+    //    else
+    //    {
+    //        return;
+    //    }
+    //}
 }
