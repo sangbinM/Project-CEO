@@ -15,10 +15,11 @@ public class ObstacleController_Level4 : MonoBehaviour
     private GameObject npc;
     public Sprite[] npcSpeech;
 
+    private int setActiveUpObject_flag = 0;
+
     void Start()
     {
         init_time = Time.time;
-        Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
         obsPoints = new GameObject[4];
         obsPoints[0] = GameObject.FindGameObjectWithTag("obstaclePos2"); //down
@@ -27,6 +28,7 @@ public class ObstacleController_Level4 : MonoBehaviour
         obsPoints[3] = GameObject.FindGameObjectWithTag("obstaclePos1");
         npc = GameObject.FindGameObjectWithTag("npc");
 
+        Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
         foreach (GameObject obstacle in Obstacles)
         {
             if (obstacle.transform.position.y == obsPoints[2].transform.position.y)
@@ -39,8 +41,11 @@ public class ObstacleController_Level4 : MonoBehaviour
 
     void Update()
     {
+        System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+        int num = rand.Next(2);
+        int num2 = rand.Next(3);
+
         Vector3 movement = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime;
-        Vector3 movement2 = new Vector3(-7.0f, 0f, 0f) * Time.deltaTime / 2;
 
         if (isTiming(Time.time, 20.0f))
         {
@@ -51,9 +56,6 @@ public class ObstacleController_Level4 : MonoBehaviour
                 // x 좌표가 -8 보다 작으면 오브젝트 SetActive False
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
-                    System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                    int num = rand.Next(2);
-
                     //Invoke 역할 random 시간 지연주기
                     obstacle.transform.position = obsPoints[num].transform.position;
                     obstacle.SetActive(true);
@@ -63,8 +65,14 @@ public class ObstacleController_Level4 : MonoBehaviour
         }
         else if (isTiming(Time.time, 40.0f))
         {
-            npc.SetActive(true);
-            npc.transform.Translate(movement2);
+            if (setActiveUpObject_flag == 0)
+            {
+                npc.SetActive(true);
+                npc.transform.Translate(movement / 2);
+
+                obsUpSetActive();
+                setActiveUpObject_flag = 1;
+            }
 
             foreach (GameObject obstacle in Obstacles)
             {
@@ -72,9 +80,6 @@ public class ObstacleController_Level4 : MonoBehaviour
 
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
-                    System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                    int num = rand.Next(2);
-
                     obstacle.transform.position = obsPoints[num].transform.position;
                     obstacle.SetActive(true);
                 }
@@ -88,11 +93,8 @@ public class ObstacleController_Level4 : MonoBehaviour
                 // x 좌표가 -8 보다 작으면 오브젝트 SetActive False
                 if (obstacle.transform.position.x < obsPoints[3].transform.position.x)
                 {
-                    System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-                    int num = rand.Next(3);
-
                     //Invoke 역할 random 시간 지연주기
-                    obstacle.transform.position = obsPoints[num].transform.position;
+                    obstacle.transform.position = obsPoints[num2].transform.position;
                     obstacle.SetActive(true);
                 }
 
@@ -102,17 +104,22 @@ public class ObstacleController_Level4 : MonoBehaviour
         }
     }
 
+    void obsUpSetActive()
+    {
+        foreach (GameObject obstacle in Obstacles)
+        {
+            if (obstacle.transform.position.y == obsPoints[2].transform.position.y)
+            {
+                obstacle.SetActive(true);
+            }
+        }
+    }
+
     void setNPCSpeech()
     {
         System.Random rand = new System.Random((int)DateTime.Now.Ticks & 0x0000FFFF);
         int num = rand.Next(21);
         SpriteRenderer sr = npc.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        //string path = "file://" + Application.dataPath + "/Images/npc" + num.ToString() + ".png";
-        //print(path);
-        //WWW www = new WWW(path);
-        //Sprite sprite = new Sprite();
-        //sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
-        //sr.sprite = sprite;
         sr.sprite = npcSpeech[num];
     }
 

@@ -12,7 +12,7 @@ public class PlayerController : FSMBase
     private float characterMass = 14f;
     private int numAttack = 0;
     private int numAttack_flag = 0;
-    
+
     private float _elapsedTime;
     private float skillTime = 4.0f;
 
@@ -36,7 +36,7 @@ public class PlayerController : FSMBase
     protected override void Awake()
     {
         base.Awake();
-        max_distance = 600;
+        max_distance = 300;
         distance = max_distance;
         skillFlag = false;
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -54,20 +54,14 @@ public class PlayerController : FSMBase
         // 공격해서 없어지는 거는 공격 애니메이션 이벤트에서 처리해주고 거기서 collision 체크를 해주면 된다
         // 플레이어 움직임 정지 + 거리 bar 정지 + 배경 정지 + 장애물 정지 해야됨
         collidedObstacle = other.gameObject;
-        
-        //ourInterface.gameClear();
+        numAttack_flag = 1;
 
         if (skillFlag)  // 스킬을 사용했을 때
         {
             collidedObstacle.SetActive(false);
-            //numAttack_flag = 1; // obstacle active false되면 더이상 numAttack 안올라 가게 체크 
         }
         else
         {
-            if (other.tag == "npc") {
-                Time.timeScale = 0f;
-                ourInterface.gameOver();
-            }
             timer = 0;
             bgm.moveFlag = false;
 
@@ -182,27 +176,34 @@ public class PlayerController : FSMBase
             }
         }
 
-        if (collidedObstacle == target) {
+        if (collidedObstacle == target)
+        {
 
-        } else if (minDist < 2.5f && target != null) {
-            if (target.transform.position.y == obsPos_mid.transform.position.y && target.activeSelf == true) {
+        }
+        else if (minDist < 2.5f && target != null)
+        {
+            if (target.transform.position.y == obsPos_mid.transform.position.y && target.activeSelf == true)
+            {
 
-                /*
-                if (target.gameObject.name == "obstacle_down" && attack_num == 0) {
+                if (target.gameObject.name == "obstacle_down" && numAttack == 0)
+                {
 
-                    attack_num++;
+                    numAttack++;
                     print("Down!!");
                     target.gameObject.SetActive(false);
 
-                }*/
-                
+                }
+
                 target.gameObject.SetActive(false);
-                if( target.transform.position != null )
+
+
+                if (target.transform.position != null)
                 {
                     numAttack += 1;
                 }
 
-                if (numAttack > 5) {
+                if (numAttack > 5)
+                {
                     numAttack = 5;
                 }
             }
