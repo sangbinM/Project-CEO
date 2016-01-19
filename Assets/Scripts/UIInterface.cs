@@ -26,11 +26,16 @@ public class UIInterface : MonoBehaviour
     public new Transform transform;
     public PlayerController playercontroller;
 
+    
     private Image[] menuPanel;
     private Image clearPanel;
     private Text clearText;
     private Image nextStageBt;
     private Text nextStageText;
+    private GameObject gameOverPanel;
+    private GameObject[] menuObject;
+
+    public Image stopButton;
 
     public Canvas ourCanvas;
 
@@ -83,7 +88,7 @@ public class UIInterface : MonoBehaviour
         //setTimeText();
         //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
-        GameObject[] menuObject = GameObject.FindGameObjectsWithTag("MenuPanel");
+        menuObject = GameObject.FindGameObjectsWithTag("MenuPanel");
         menuPanel = new Image[menuObject.Length];
         int i = 0;
         foreach (GameObject temp in menuObject)
@@ -94,6 +99,9 @@ public class UIInterface : MonoBehaviour
                 menuPanel[i].GetComponentInChildren<Text>().enabled = false;
             i++;
         }
+
+        gameOverPanel = GameObject.FindGameObjectWithTag("GameOverPanel");
+        gameOverPanel.SetActive(false);
 
         clearPanel = GameObject.FindGameObjectWithTag("ClearPanel").GetComponent<Image>();
         clearText = clearPanel.GetComponentInChildren<Text>();
@@ -129,6 +137,12 @@ public class UIInterface : MonoBehaviour
     public void gameClear()
     {
         Time.timeScale = 0.0f;
+        
+        JumpButton.GetComponent<Button>().enabled = false;
+        AttackButton.GetComponent<Button>().enabled = false;
+        SkillButton.GetComponent<Button>().enabled = false;
+        SkillGage.GetComponent<Button>().enabled = false;
+        stopButton.GetComponent<Button>().enabled = false;
 
         print("clear time : " + clearTime);
         if (GameData.data.times[stageNum - 1] > clearTime || GameData.data.times[stageNum-1] < 0)
@@ -179,6 +193,26 @@ public class UIInterface : MonoBehaviour
         nextStageBt.enabled = true;
         nextStageText.enabled = true;
     }
+
+
+
+    public void gameOver()
+    {
+        Time.timeScale = 0.0f;
+
+        JumpButton.GetComponent<Button>().enabled = false;
+        AttackButton.GetComponent<Button>().enabled = false;
+        SkillButton.GetComponent<Button>().enabled = false;
+        SkillGage.GetComponent<Button>().enabled = false;
+        stopButton.GetComponent<Button>().enabled = false;
+
+
+        gameOverPanel.SetActive(true);
+
+    }
+
+
+
 
     private void setTimeText() {
 
