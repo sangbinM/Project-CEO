@@ -12,6 +12,7 @@ public class ObstacleController_Level2 : MonoBehaviour
     private GameObject[] Obstacles;
     private GameObject[] obsPoints;
     private float init_time;
+    private PlayerController _player;
 
     void Start()
     {
@@ -29,6 +30,8 @@ public class ObstacleController_Level2 : MonoBehaviour
             if (obstacle.transform.position.y == obsPoints[2].transform.position.y)
                 obstacle.SetActive(false);
         }
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _player.level1to4Sound.Play();
     }
 
 

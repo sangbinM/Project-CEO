@@ -16,6 +16,7 @@ public class ObstacleController_Level5 : MonoBehaviour
     public Sprite[] npcSpeech;
 
     private int setActiveUpObject_flag = 0;
+    private PlayerController _player;
 
     void Start()
     {
@@ -31,6 +32,9 @@ public class ObstacleController_Level5 : MonoBehaviour
 
         npc.SetActive(false);
         setNPCSpeech();
+
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _player.level5Sound.Play();
     }
 
 

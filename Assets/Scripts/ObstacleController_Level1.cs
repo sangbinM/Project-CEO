@@ -11,6 +11,7 @@ public class ObstacleController_Level1 : MonoBehaviour
 
     private GameObject[] Obstacles;
     private GameObject[] obsPoints;
+    private PlayerController _player;
 
     void Start()
     {
@@ -20,6 +21,8 @@ public class ObstacleController_Level1 : MonoBehaviour
         obsPoints[0] = GameObject.FindGameObjectWithTag("obstaclePos2"); //down
         obsPoints[1] = GameObject.FindGameObjectWithTag("obstaclePos3"); //mid
         obsPoints[2] = GameObject.FindGameObjectWithTag("obstaclePos1");
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        _player.level1to4Sound.Play();
     }
 
 

@@ -32,6 +32,13 @@ public class PlayerController : FSMBase
     private bool skillFlag;
 
     public UIInterface ourInterface;
+    public AudioSource jumpSound;
+    public AudioSource playerDeadSound;
+    public AudioSource overTime;
+    public AudioSource level1to4Sound;
+    public AudioSource level5Sound;
+    public AudioSource hurtSound;
+    public AudioSource attackSound;
 
     protected override void Awake()
     {
@@ -45,6 +52,8 @@ public class PlayerController : FSMBase
         characterAltitude = transform.position.y;
         ourInterface = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>().GetComponent<UIInterface>();
         obsPos_mid = GameObject.FindGameObjectWithTag("obstaclePos3");
+        
+
     }
 
     // 장애물 이랑 충돌하면 이벤트 함수 발생, other값은 player와 충돌한 객체(장애물)
@@ -98,6 +107,7 @@ public class PlayerController : FSMBase
 
         if (!skillFlag && timer >= 1 && !bgm.moveFlag)    // 배경 정지 1초만 하고 움직이기
         {
+            hurtSound.Play();
             bgm.moveFlag = true;
         }
         else if (skillFlag && timer >= skillTime)
@@ -166,6 +176,8 @@ public class PlayerController : FSMBase
         float minDist = 1000.0f;
         float dist;
 
+        attackSound.Play();
+
         foreach (GameObject obstacle in Obstacles)
         {
             dist = obstacle.transform.position.x - _player.transform.position.x;
@@ -216,6 +228,7 @@ public class PlayerController : FSMBase
 
     protected virtual void Jump()
     {
+        jumpSound.Play();
         jumpSpeed += characterMass * Physics.gravity.y * Time.deltaTime * 1 / 2;
         Vector3 movement = new Vector3(0f, jumpSpeed * Time.deltaTime);
         transform.Translate(movement);

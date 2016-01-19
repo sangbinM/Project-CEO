@@ -42,6 +42,7 @@ public class UIInterface : MonoBehaviour
     public string sceneToLoad;
 
     private GameObject[] levels;
+    private PlayerController _player;
 
     void Awake()
     {
@@ -114,6 +115,7 @@ public class UIInterface : MonoBehaviour
 
         transform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playercontroller = transform.GetComponent<PlayerController>();
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         ourCanvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
         sceneToLoad = "Map";
@@ -136,6 +138,7 @@ public class UIInterface : MonoBehaviour
 
     public void gameClear()
     {
+        _player.overTime.Play();
         Time.timeScale = 0.0f;
         
         JumpButton.GetComponent<Button>().enabled = false;

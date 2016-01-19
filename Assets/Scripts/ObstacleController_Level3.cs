@@ -14,11 +14,13 @@ public class ObstacleController_Level3 : MonoBehaviour
     public Sprite[] npcSpeech;
 
     private int setActiveUpObject_flag;
+    private PlayerController _player;
 
     void Start()
     {
         init_time = Time.time;
         setActiveUpObject_flag = 0;
+        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         obsPoints = new GameObject[4];
         obsPoints[0] = GameObject.FindGameObjectWithTag("obstaclePos2"); //down
@@ -38,6 +40,7 @@ public class ObstacleController_Level3 : MonoBehaviour
 
         npc.SetActive(false);
         setNPCSpeech();
+        _player.level1to4Sound.Play();
     }
 
 
