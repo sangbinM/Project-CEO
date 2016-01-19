@@ -457,6 +457,9 @@ public class UIInterface : MonoBehaviour
         }
     }
 
-    
+    public void develFF()
+    {
+        playercontroller.distance = 80;
+    }
 
 }
