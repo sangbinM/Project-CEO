@@ -79,7 +79,7 @@ public class Intro : MonoBehaviour {
         else
         {
             GameData.data.playerName = "오늘만";
-            panelText.text = "캐릭터명을 입력하지 않았으므로 캐릭터명을 [" + GameData.data.playerName + "]으로 정하시겠습니까?";
+            panelText.text = "캐릭터명을 입력하지 않았습니다. 기본 캐릭터명인 [" + GameData.data.playerName + "]으로 설정됩니다.";
         }
     }
 
