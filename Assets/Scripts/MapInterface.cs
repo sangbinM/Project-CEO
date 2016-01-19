@@ -21,13 +21,13 @@ public class MapInterface : MonoBehaviour {
     public Image endButton;
     public Text endText;
 
-    public Image exit;
+    public GameObject exitPanel;
 
     //public new Transform transform;
 
     void Awake()
     {
-        exit.enabled = false;
+        exitPanel.SetActive(false);
         panel.enabled = false;
         startButton.enabled = false;
         endButton.enabled = false;
@@ -79,12 +79,19 @@ public class MapInterface : MonoBehaviour {
     }
     */
 
+    public void eixt() {
+
+        Application.Quit();
+
+
+    }
+
     public void pause()
     {
         
         if (Time.timeScale == 0) {
 
-            exit.enabled = false;
+            exitPanel.SetActive(false);
             //일시 정지 버튼 끌 시 다른 UI버튼 클릭 활성화
             startButton.GetComponent<Button>().enabled = true;
             endButton.GetComponent<Button>().enabled = true;
@@ -101,7 +108,7 @@ public class MapInterface : MonoBehaviour {
 
         } else {
 
-            exit.enabled = true;
+            exitPanel.SetActive(true);
             //일시 정지 버튼 끌 시 다른 UI버튼 클릭 활성화
             startButton.GetComponent<Button>().enabled = false;
             endButton.GetComponent<Button>().enabled = false;
