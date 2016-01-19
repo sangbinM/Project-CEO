@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Description : MonoBehaviour {
 
-    public Text[] descriptionText = new Text[3];
+    public Text[] descriptionText = new Text[5];
     public string sceneToLoad = "Map";
 
     // Use this for initialization
     void Start () {
-        descriptionText[1].enabled = false;
-        descriptionText[2].enabled = false;
+        for (int i = 1; i < 5; i++)
+            descriptionText[i].enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -33,7 +33,19 @@ public class Description : MonoBehaviour {
         }
         else if (descriptionText[2].enabled == true)
         {
+            descriptionText[2].enabled = false;
+            descriptionText[3].enabled = true;
+        }
+        else if (descriptionText[3].enabled == true)
+        {
+            descriptionText[3].enabled = false;
+            descriptionText[4].enabled = true;
+        }
+        else if (descriptionText[4].enabled == true)
+        {
             SceneManager.LoadScene(sceneToLoad);
+            descriptionText[4].enabled = false;
+            descriptionText[0].enabled = false;
         }
     }
 }
