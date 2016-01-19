@@ -14,7 +14,6 @@ public class ObstacleController_Level3 : MonoBehaviour
     public Sprite[] npcSpeech;
 
     private int setActiveUpObject_flag;
-    //private GameObject[] coupleObstacles;
 
     void Start()
     {
@@ -27,13 +26,6 @@ public class ObstacleController_Level3 : MonoBehaviour
         obsPoints[2] = GameObject.FindGameObjectWithTag("obstaclePos4"); //up
         obsPoints[3] = GameObject.FindGameObjectWithTag("obstaclePos1");
         npc = GameObject.FindGameObjectWithTag("npc");
-        //coupleObstacles = new GameObject[2];
-        //coupleObstacles = GameObject.FindGameObjectsWithTag("coupleObs");
-
-        //foreach (GameObject cop in coupleObstacles)
-        //{
-        //    cop.SetActive(false);
-        //}
 
         Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
         foreach (GameObject obstacle in Obstacles)
@@ -42,8 +34,6 @@ public class ObstacleController_Level3 : MonoBehaviour
             {
                 obstacle.SetActive(false);
             }
-            if (obstacle.transform.name == "coupleObs")
-                obstacle.SetActive(false);
         }
 
         npc.SetActive(false);
@@ -94,18 +84,6 @@ public class ObstacleController_Level3 : MonoBehaviour
                 }
             }
 
-            //foreach (GameObject cop in coupleObstacles)
-            //{
-            //    //Vector3 v =  new Vector3(-7.0f, 0.0f, 0.0f) * Time.deltaTime;
-
-            //    cop.transform.Translate(movement);
-
-            //    if (cop.transform.position.x < obsPoints[3].transform.position.x)
-            //    {
-            //        cop.transform.position = new Vector3(obsPoints[num2].transform.position.x + 27.0f, 0.0f, 0.0f);
-            //        cop.SetActive(true);
-            //    }
-            //}
         }
         else {
             foreach (GameObject obstacle in Obstacles)
@@ -129,18 +107,7 @@ public class ObstacleController_Level3 : MonoBehaviour
             {
                 obstacle.SetActive(true);
             }
-            if (obstacle.transform.name == "coupleObs")
-            {
-                obstacle.SetActive(true);
-            }
         }
-
-        //foreach (GameObject cop in coupleObstacles)
-        //{
-        //    cop.SetActive(true);
-        //}
-
-        //Obstacles = GameObject.FindGameObjectsWithTag("obstacle");
     }
 
 
