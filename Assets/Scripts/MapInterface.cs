@@ -7,6 +7,7 @@ public class MapInterface : MonoBehaviour {
 
     public Button[] StageButton;
     public int[] playTime;
+    public int[] stageStars;
     // 플레이 타임이 (-1)이면 아직 성공하지 못한 스테이지
     public string[] StageInfo;
     public string[] StageDetail;
@@ -36,6 +37,7 @@ public class MapInterface : MonoBehaviour {
         panelInfo.enabled = false;
         panelDetail.enabled = false;
         playTime = GameData.data.times;
+        stageStars = GameData.data.stars;
         StageInfo = new string[] { "대리 던전", "과장 던전", "부장 던전", "임원 던전", "사장 던전" };
         StageDetail = new string[] {"피곤에 지친 대리님들로 가득한 던전입니다. 주의 요망!",
             "고통받는 과장님들의 단말마가 울려퍼지는 던전입니다. 한적한 곳은 피하십시오!",
@@ -99,7 +101,7 @@ public class MapInterface : MonoBehaviour {
 
             StageButton[0].enabled = true;
             for (int i = 1; i < 5; i++) { 
-                if (playTime[i-1] > -1) {
+                if (stageStars[i-1] == 3) {
                     StageButton[i].enabled = true;
                 }
             }
@@ -198,7 +200,7 @@ public class MapInterface : MonoBehaviour {
 
         for (int i = 0; i < 5; i++)
         {
-            if (playTime[i] < 0)
+            if (stageStars[i] < 0)
             {
                 if (currentStageNum < 0)
                     currentStageNum = i;
