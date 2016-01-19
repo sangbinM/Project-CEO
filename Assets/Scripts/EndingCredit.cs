@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EndingCredit : MonoBehaviour {
 
-    private float moveSpeed = 40.0f;
+    private float moveSpeed = 30.0f;
 
     public new Transform transform;
 

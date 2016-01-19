@@ -149,7 +149,7 @@ public class UIInterface : MonoBehaviour
 
         print("clear panel open");
         clearPanel.enabled = true;
-        clearText.text = "스테이지 클리어! \n 클리어 타임 : " + TimeText.text + "\n\n" + GameData.data.playerName;
+        clearText.text = "STAGE CLEAR\n CLEAR TIME : " + TimeText.text + "\n\n" + GameData.data.playerName;
 
         switch (stageNum)
         {

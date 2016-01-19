@@ -36,7 +36,7 @@ public class PlayerController : FSMBase
     protected override void Awake()
     {
         base.Awake();
-        max_distance = 300;
+        max_distance = 30;
         distance = max_distance;
         skillFlag = false;
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
