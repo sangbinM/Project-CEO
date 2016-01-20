@@ -11,6 +11,7 @@ public class FSMBase : MonoBehaviour {
         Dead,
         Skill,
         Jump2,
+        Hurt,
 
         Max
     }
