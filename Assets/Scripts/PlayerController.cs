@@ -71,6 +71,10 @@ public class PlayerController : FSMBase
         }
         else
         {
+            if (other.gameObject.tag == "npc")
+            {
+                ourInterface.gameOver();
+            }
             timer = 0;
             bgm.moveFlag = false;
 
@@ -201,7 +205,6 @@ public class PlayerController : FSMBase
                 {
 
                     numAttack++;
-                    print("Down!!");
                     target.gameObject.SetActive(false);
 
                 }
